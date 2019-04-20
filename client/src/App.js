@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import BlogForm from './BlogForm'
 
 class App extends Component {
 
@@ -18,7 +19,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      {this.state.posts.map(post => <li>{post.title}</li>)}
+      {this.state.posts.map(post => <li key={post.id}>{post.title}</li>)}
+      < BlogForm />
       </div>
     );
   }
