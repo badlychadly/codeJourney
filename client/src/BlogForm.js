@@ -6,6 +6,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default class BlogForm extends Component {
 
     state = {
+        title: "",
         body: ""
     }
 
