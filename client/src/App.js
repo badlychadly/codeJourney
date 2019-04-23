@@ -12,17 +12,19 @@ class App extends Component {
   componentDidMount() {
     fetch('http://10.0.0.99:3001/api/posts')
     .then(resp => resp.json())
-    .then(data => this.setState({posts: data}))
+    .then(posts => this.setState({posts}))
   }
 
 
   render() {
-    return (
+    // console.log(this.state)
+    return this.state.posts ? (
       <div className="App">
       {this.state.posts.map(post => <li key={post.id}>{post.title}</li>)}
-      < BlogForm />
+      < BlogForm  />
       </div>
-    );
+    ) :
+    <h2>Loading</h2>
   }
 }
 
