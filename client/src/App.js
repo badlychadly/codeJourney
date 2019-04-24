@@ -17,9 +17,9 @@ class App extends Component {
 
 
   render() {
-    // console.log(this.state)
+    
     return this.state.posts ? (
-      <div className="App">
+      <div className="">
       {this.state.posts.map(post => <li key={post.id}>{post.title}</li>)}
       < BlogForm  />
       </div>

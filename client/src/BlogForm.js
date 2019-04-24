@@ -17,8 +17,14 @@ export default class BlogForm extends Component {
 
     handleOnChange = (event, editor) => {
         const body = editor.getData();
-        this.setState({body})
-        console.log( { event, editor, body } );
+        let title;
+        if (!!body) {
+            // debugger;
+            // Commit regular expression changes
+            title = body.includes("<h2>") ? /<h2>(.*?)<\/h2>/gm.exec(body)[1] : ""
+            this.setState({body, title: title})
+            console.log( { event, editor, body } );
+        }
     }
 
     handleOnSubmit = (event, editor) => {
@@ -49,6 +55,13 @@ export default class BlogForm extends Component {
                         // You can store the "editor" and use when it is needed.
                         console.log( 'Editor is ready to use!', editor );
                     } }
+                    config={ {heading: {
+                        options: [
+                            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                            { model: 'heading1', view: 'h2', title: 'Heading 1', class: 'ck-heading_heading1' },
+                            { model: 'heading2', view: 'h3', title: 'Heading 2', class: 'ck-heading_heading2' }
+                        ]
+                    }}}
                     onChange={ this.handleOnChange }
                     onBlur={ editor => {
                         console.log( 'Blur.', editor );
