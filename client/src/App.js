@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux'
+import { getPosts } from './actions/posts'
 import BlogForm from './BlogForm'
 
 class App extends Component {
@@ -10,17 +12,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://10.0.0.99:3001/api/posts')
-    .then(resp => resp.json())
-    .then(posts => this.setState({posts}))
+    this.props.getPosts()
   }
 
 
   render() {
     
-    return this.state.posts ? (
+    return this.props.posts.length ? (
       <div className="">
-      {this.state.posts.map(post => <li key={post.id}>{post.title}</li>)}
+      {this.props.posts.map(post => <li key={post.id}>{post.title}</li>)}
       < BlogForm  />
       </div>
     ) :
@@ -28,4 +28,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log(state)
+  return ({
+    posts: state
+  })
+}
+
+export default connect(mapStateToProps, { getPosts })(App);
