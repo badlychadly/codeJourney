@@ -7,7 +7,8 @@ export default class BlogForm extends Component {
 
     state = {
         title: "",
-        body: ""
+        body: "",
+        newPost: {}
     }
 
     componentDidMount() {
@@ -35,8 +36,8 @@ export default class BlogForm extends Component {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(this.state)
-        }).then(resp => resp.json()).then(data => {
-            debugger;
+        }).then(resp => resp.json()).then(newPost => {
+            this.setState({newPost})
         })
 
     }
