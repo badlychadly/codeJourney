@@ -7,9 +7,6 @@ import BlogForm from './BlogForm'
 
 class App extends Component {
 
-  state = {
-    posts: []
-  }
 
   componentDidMount() {
     this.props.getPosts()
@@ -17,8 +14,8 @@ class App extends Component {
 
 
   render() {
-    
-    return this.props.posts.length ? (
+    debugger;
+    return this.props.byId.length ? (
       <div className="">
       {this.props.posts.map(post => <li key={post.id}>{post.title}</li>)}
       < BlogForm  />
@@ -31,7 +28,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return ({
-    posts: state
+    byId: state.posts.byId
   })
 }
 

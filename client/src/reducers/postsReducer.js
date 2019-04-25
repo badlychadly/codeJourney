@@ -1,12 +1,23 @@
 
 
 export default (state = {
-    posts: []
+    posts: {
+        byId: {},
+        allIds : []
+    }
 }
 , action) => {
     switch (action.type) {
         case "GET_POSTS":
-            return action.posts
+        // debugger
+            return {
+                ...state, 
+                posts: {
+                    byId: {
+                        ...action.posts.map(p => ({...p.id, ...p}))
+                    }
+                }
+            }
         default:
             return state;
     }
