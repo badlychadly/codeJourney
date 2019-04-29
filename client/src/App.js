@@ -12,12 +12,17 @@ class App extends Component {
     this.props.getPosts()
   }
 
+  renderPosts = (posts) => {
+    return posts.map(post => <li key={post.id}>{post.title}</li> )
+  }
+
 
   render() {
-    debugger;
-    return this.props.byId.length ? (
+    // debugger;
+    return Object.keys(this.props.byId).length ? (
       <div className="">
-      {this.props.posts.map(post => <li key={post.id}>{post.title}</li>)}
+      {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
+      {this.props.allIds.map(id => <li key={id}>{this.props.byId[id].title}</li>)}
       < BlogForm  />
       </div>
     ) :
@@ -28,7 +33,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return ({
-    byId: state.posts.byId
+    byId: state.posts.byId,
+    allIds: state.posts.allIds
   })
 }
 

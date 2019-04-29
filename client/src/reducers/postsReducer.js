@@ -9,13 +9,12 @@ export default (state = {
 , action) => {
     switch (action.type) {
         case "GET_POSTS":
-        // debugger
+        // debugger;
             return {
                 ...state, 
                 posts: {
-                    byId: {
-                        ...action.posts.map(p => ({...p.id, ...p}))
-                    }
+                    byId: action.posts.reduce((acc,p) => ({...acc, [p.id]: p}), {}),
+                    allIds: action.posts.map(p => p.id)
                 }
             }
         default:
