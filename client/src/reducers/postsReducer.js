@@ -17,6 +17,9 @@ export default (state = {
                     allIds: action.posts.map(p => p.id)
                 }
             }
+        case "ADD_POST":
+        debugger;
+        return {}
         default:
             return state;
     }

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { connect } from 'react-redux'
+import { addPost } from './actions/posts'
 
 
-export default class BlogForm extends Component {
+class BlogForm extends Component {
 
     state = {
         title: "",
@@ -21,7 +23,6 @@ export default class BlogForm extends Component {
         let title;
         if (!!body) {
             // debugger;
-            // Commit regular expression changes
             title = body.includes("<h2>") ? /<h2>(.*?)<\/h2>/gm.exec(body)[1] : ""
             this.setState({body, title: title})
             console.log( { event, editor, body } );
@@ -31,14 +32,14 @@ export default class BlogForm extends Component {
     handleOnSubmit = (event, editor) => {
         // let state = this.state
         event.preventDefault()
-        // debugger;
-        fetch('http://10.0.0.99:3001/api/posts', {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(this.state)
-        }).then(resp => resp.json()).then(newPost => {
-            this.setState({newPost})
-        })
+        // fetch('http://10.0.0.99:3001/api/posts', {
+        //     method: "POST",
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify(this.state)
+        // }).then(resp => resp.json()).then(newPost => {
+        //     this.setState({newPost})
+        // })
+        this.props.addPost(this.state)
 
     }
 
@@ -58,8 +59,8 @@ export default class BlogForm extends Component {
                     } }
                     config={ {heading: {
                         options: [
-                            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
                             { model: 'heading1', view: 'h2', title: 'Heading 1', class: 'ck-heading_heading1' },
+                            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
                             { model: 'heading2', view: 'h3', title: 'Heading 2', class: 'ck-heading_heading2' }
                         ]
                     }}}
@@ -78,3 +79,5 @@ export default class BlogForm extends Component {
         )
     }
 }
+
+export default connect(null, { addPost })(BlogForm);
