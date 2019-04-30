@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPosts } from './actions/posts'
 import BlogForm from './BlogForm'
@@ -23,7 +24,8 @@ class App extends Component {
       <div className="">
       {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
       {this.props.allIds.map(id => <li key={id}>{this.props.byId[id].title}</li>)}
-      < BlogForm  />
+      {/* < BlogForm  /> */}
+      <Route exact path="/posts/new" component={BlogForm} />
       </div>
     ) :
     <h2>Loading</h2>
