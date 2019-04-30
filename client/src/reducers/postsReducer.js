@@ -9,7 +9,6 @@ export default (state = {
 , action) => {
     switch (action.type) {
         case "GET_POSTS":
-        // debugger;
             return {
                 ...state, 
                 posts: {
@@ -18,8 +17,17 @@ export default (state = {
                 }
             }
         case "ADD_POST":
-        debugger;
-        return {}
+        return {
+            ...state,
+            posts: {
+                ...state.posts,
+                byId: {
+                    ...state.posts.byId,
+                     [action.post.id]: action.post
+                },
+                allIds: state.posts.allIds.concat(action.post.id)
+            }
+        }
         default:
             return state;
     }
