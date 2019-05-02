@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPosts } from './actions/posts'
 import BlogForm from './BlogForm'
+import BlogUi from './BlogUi'
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
       {this.props.allIds.map(id => <li key={id}>{this.props.byId[id].title}</li>)}
       {/* < BlogForm  /> */}
       <Route exact path="/posts/new" component={BlogForm} />
+      <Route exact path="/blog_ui" component={BlogUi} />
       </div>
     ) :
     <h2>Loading</h2>
