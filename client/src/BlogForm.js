@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { connect } from 'react-redux'
 import { addPost } from './actions/posts'
 
@@ -48,33 +46,7 @@ class BlogForm extends Component {
         console.log(this.state)
         return (
             <div>
-                <form onSubmit={this.handleOnSubmit}>
-
-                <CKEditor
-                    editor={ ClassicEditor }
-                    data={this.state.body}
-                    onInit={ editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
-                    config={ {heading: {
-                        options: [
-                            { model: 'heading1', view: 'h2', title: 'Heading 1', class: 'ck-heading_heading1' },
-                            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                            { model: 'heading2', view: 'h3', title: 'Heading 2', class: 'ck-heading_heading2' }
-                        ]
-                    }}}
-                    onChange={ this.handleOnChange }
-                    onBlur={ editor => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ editor => {
-                        console.log( 'Focus.', editor );
-                    } }
-                    // disabled
-                />
-                <input type="submit" value="submit"/>
-                </form>
+               
             </div>                
         )
     }

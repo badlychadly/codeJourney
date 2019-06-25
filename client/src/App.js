@@ -35,7 +35,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  // console.log(state)
   return ({
     byId: state.posts.byId,
     allIds: state.posts.allIds
