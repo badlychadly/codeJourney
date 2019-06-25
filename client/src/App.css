@@ -35,3 +35,114 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.editor-wrapper {
+  padding: 1rem;
+}
+
+.DraftEditor-root {
+  margin-top: 3rem;
+}
+
+.menu-inline-wrapper {
+     display: inline-block;
+    visibility: visible;
+    -webkit-transition: top 75ms ease-out,left 75ms ease-out;
+    transition: top 75ms ease-out,left 75ms ease-out;
+    -webkit-animation: pop-upwards 180ms forwards linear;
+    animation: pop-upwards 180ms forwards linear;
+}
+
+/* .menu-inline-wrapper {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+  z-index: 500;
+  -webkit-transition: none;
+  transition: none;
+  top: 0;
+  left: 0;
+  display: inline-block;
+    visibility: visible;
+    -webkit-transition: top 75ms ease-out,left 75ms ease-out;
+    transition: top 75ms ease-out,left 75ms ease-out;
+    -webkit-animation: pop-upwards 180ms forwards linear;
+    animation: pop-upwards 180ms forwards linear;
+} */
+
+.header-dropdown {
+  background-color: #262625;
+  width: fit-content;
+  border-radius: 5px;
+}
+
+.header-btn {
+  background: rgba(0,0,0,0);
+  color: #fff;
+  border: 0;
+  padding: .5rem;
+  outline: none;
+}
+
+.header-btn:hover {
+  background-color: rgba(78, 78, 75, 0.99);
+}
+
+
+.menu-inline-inner {
+  position: relative;
+  background-image: linear-gradient(to bottom,rgba(49,49,47,.99),#262625);
+  background-repeat: repeat-x;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.menu-inline-btn {
+  /* margin: 0 8px; */
+  height: 44px;
+  line-height: 46px;
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+  color: #fff;
+  box-sizing: content-box;
+  padding: 0 .5rem;
+  text-align: left;
+  white-space: normal;
+  transition: .1s background-color,.1s border-color,.1s color,.1s fill;
+  position: relative;
+  background: rgba(0,0,0,0);
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  outline: transparent;
+}
+
+.menu-inline-btn:hover {
+  background-color: rgba(78, 78, 75, 0.99);
+}
+
+
+.public-DraftEditorPlaceholder-root {
+  color: #9197a3;
+  position: absolute;
+  z-index: 0;
+  font-size: 2em;
+}
+
+.RichEditor-blockquote{
+  padding: 1rem;
+  font-family: Menlo,Monaco,"Courier New",Courier,monospace;
+  background: rgba(0,0,0,.05);
+  white-space: pre-wrap;
+}
