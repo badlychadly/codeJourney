@@ -24,14 +24,28 @@ import Toolbar, { getBlockStyle } from './toolbar/Toolbar'
 const highlightPlugin = createHighlightPlugin();
 
 const myMap = {
-  "entityMap": {},
+  "entityMap": {
+    "0": {
+        "type": "TITLE",
+        "mutability": "MUTABLE",
+        "data": {
+         "title": ""
+        }
+       }
+  },
   "blocks": [
       {
           "key": "5h45l",
           "text": "",
           "type": "header-one",
           "depth": 0,
-          "entityRanges": [],
+          "entityRanges": [
+            {
+             "offset": 0,
+             "length": 4,
+             "key": 0
+            }
+           ],
           "inlineStyleRanges": [],
           "data": {}
       }
@@ -172,6 +186,7 @@ componentDidMount() {
 //    const rawCon = convertToRaw(testState.getCurrentContent())
 //    const editor = Editor
 //    const rich = RichUtils
+        const convert = convertToRaw
       const dMap = DefaultDraftBlockRenderMap
   //  debugger;
   // this.onChange(testState)
@@ -185,7 +200,7 @@ navStyleToggle = (e) => {
       e.stopPropagation()
       const newEditorState = this.setSelection(this.state.editorState);
       const m = Modifier
-      // debugger;
+    //   debugger;
 
       if (!!e.currentTarget.dataset.name) {
           return this.onChange(newEditorState)
@@ -208,10 +223,34 @@ navStyleToggle = (e) => {
   //   return getDefaultKeyBinding(e)
   // }
 
+  handleSave = e => {
+
+  }
+
+//   componentDidUpdate(prevProps, prevState) {
+//     const currentContent = this.state.editorState.getCurrentContent()
+//       const lastEntityK = currentContent.getLastCreatedEntityKey()
+//       const selectionKey = this.state.editorState.getSelection().getStartKey()
+//       const firstBlock = this.state.editorState.getCurrentContent().getFirstBlock()
+//       if(selectionKey === firstBlock.getKey()) {
+//         let newContent = currentContent.mergeEntityData(
+//             "1", 
+//             {title: currentContent.getFirstBlock().getText()}
+//             )
+//         this.onChange(EditorState.push(this.state.editorState, newContent, "apply-entity"))
+//       }
+//     //   console.log(this.state.editorState.getCurrentContent().getFirstBlock().getLength())
+//       console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+//       console.log(this.state.editorState.getCurrentContent().getEntity("1"))
+//   }
+
 
   
 
   render() {
+    //   const rawInfo = convertToRaw(this.state.editorState.getCurrentContent())
+    //   console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+    // debugger;
     return (
       <div style={styles.editor} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>
       
@@ -232,6 +271,7 @@ navStyleToggle = (e) => {
           plugins={this.plugins}
           placeholder="Hello"
         />
+        <button onClick={this.handleSave}>save</button>
       </div>
     );
   }
