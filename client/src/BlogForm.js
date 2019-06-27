@@ -25,13 +25,13 @@ const highlightPlugin = createHighlightPlugin();
 
 const myMap = {
   "entityMap": {
-    "0": {
-        "type": "TITLE",
-        "mutability": "MUTABLE",
-        "data": {
-         "title": ""
-        }
-       }
+    // "0": {
+    //     "type": "TITLE",
+    //     "mutability": "MUTABLE",
+    //     "data": {
+    //      "title": ""
+    //     }
+    //    }
   },
   "blocks": [
       {
@@ -40,11 +40,11 @@ const myMap = {
           "type": "header-one",
           "depth": 0,
           "entityRanges": [
-            {
-             "offset": 0,
-             "length": 4,
-             "key": 0
-            }
+            // {
+            //  "offset": 0,
+            //  "length": 0,
+            //  "key": 0
+            // }
            ],
           "inlineStyleRanges": [],
           "data": {}
@@ -66,6 +66,35 @@ class BlogForm extends React.Component {
     // this.state = {editorState: EditorState.createEmpty()}
     this.state = {editorState: EditorState.createWithContent(cState)};
     this.onChange = (editorState) => {
+
+        const selectionKey = editorState.getSelection().getStartKey()
+        const contentState = editorState.getCurrentContent()
+        const firstBlock = contentState.getFirstBlock()
+        if(editorState.getSelection().getStartKey() === firstBlock.getKey()) {
+            // let mergedContent = editorState.getCurrentContent().mergeEntityData(
+            //     "1", 
+            //     {title: firstBlock.getText()}
+            // )
+            contentState.createEntity(
+                'TITLE',
+                'MUTABLE',
+                {title: firstBlock.text}
+            )
+            const entityKey = contentState.getLastCreatedEntityKey()
+            const selection = editorState.getSelection()
+            const newSelection = selection.merge({anchorOffset: firstBlock.getLength(), focusOffset: 0, isBackward: true})
+            let contentWithTitle = Modifier.applyEntity(
+                contentState,
+                newSelection,
+                entityKey
+            )
+            // console.dir(Modifier.applyEntity)
+            const newEditorState = EditorState.push(editorState, contentWithTitle, "apply-entity")
+            console.log(convertToRaw(newEditorState.getCurrentContent()))
+            // debugger;
+        return this.setState( {editorState: newEditorState})
+      }
+    //   debugger;
         this.setState({editorState});
     }
     // this.setEditor = (editor) => {
@@ -249,7 +278,7 @@ navStyleToggle = (e) => {
 
   render() {
     //   const rawInfo = convertToRaw(this.state.editorState.getCurrentContent())
-    //   console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+      console.log(convertToRaw(this.state.editorState.getCurrentContent()))
     // debugger;
     return (
       <div style={styles.editor} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>
