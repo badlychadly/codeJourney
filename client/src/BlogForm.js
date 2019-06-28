@@ -25,13 +25,13 @@ const highlightPlugin = createHighlightPlugin();
 
 const myMap = {
   "entityMap": {
-    // "0": {
-    //     "type": "TITLE",
-    //     "mutability": "MUTABLE",
-    //     "data": {
-    //      "title": ""
-    //     }
-    //    }
+    "0": {
+        "type": "TITLE",
+        "mutability": "MUTABLE",
+        "data": {
+         "title": ""
+        }
+       }
   },
   "blocks": [
       {
@@ -40,11 +40,11 @@ const myMap = {
           "type": "header-one",
           "depth": 0,
           "entityRanges": [
-            // {
-            //  "offset": 0,
-            //  "length": 0,
-            //  "key": 0
-            // }
+            {
+             "offset": 0,
+             "length": 0,
+             "key": "0"
+            }
            ],
           "inlineStyleRanges": [],
           "data": {}
@@ -71,28 +71,48 @@ class BlogForm extends React.Component {
         const contentState = editorState.getCurrentContent()
         const firstBlock = contentState.getFirstBlock()
         if(editorState.getSelection().getStartKey() === firstBlock.getKey()) {
+            if (firstBlock.getLength() > 0) {
+                const entityKey = contentState.getLastCreatedEntityKey()
+                const selection = editorState.getSelection()
+                const newSelection = selection.merge({anchorOffset: 0, focusOffset: firstBlock.getLength()})
+                
+                let contentWithTitle = Modifier.applyEntity(
+                    contentState,
+                    newSelection,
+                    entityKey
+                )
+                // const changeSelectionEditorState = EditorState.moveFocusToEnd(EditorState.moveSelectionToEnd(editorState))
+                const fixSelection = selection.merge({anchorOffset: firstBlock.getLength(), focusOffset: firstBlock.getLength()})
+                console.dir(EditorState.push)
+                const newEditorState = EditorState.push(editorState, contentWithTitle, "insert-characters")
+                const changeSelectionEditorState = EditorState.forceSelection(newEditorState, fixSelection)
+                
+                debugger;
+                return this.setState({editorState: changeSelectionEditorState})
+            }
             // let mergedContent = editorState.getCurrentContent().mergeEntityData(
             //     "1", 
             //     {title: firstBlock.getText()}
             // )
-            contentState.createEntity(
-                'TITLE',
-                'MUTABLE',
-                {title: firstBlock.text}
-            )
-            const entityKey = contentState.getLastCreatedEntityKey()
-            const selection = editorState.getSelection()
-            const newSelection = selection.merge({anchorOffset: firstBlock.getLength(), focusOffset: 0, isBackward: true})
-            let contentWithTitle = Modifier.applyEntity(
-                contentState,
-                newSelection,
-                entityKey
-            )
+            // contentState.createEntity(
+            //     'TITLE',
+            //     'MUTABLE',
+            //     {title: firstBlock.text}
+            // )
+            
+
+            // const newSelection = selection.merge({anchorOffset: firstBlock.getLength(), focusOffset: 0, isBackward: true})
+            // debugger
+            // let contentWithTitle = Modifier.applyEntity(
+            //     contentState,
+            //     selection,
+            //     entityKey
+            // )
             // console.dir(Modifier.applyEntity)
-            const newEditorState = EditorState.push(editorState, contentWithTitle, "apply-entity")
-            console.log(convertToRaw(newEditorState.getCurrentContent()))
+            // const newEditorState = EditorState.push(editorState, contentWithTitle, "apply-entity")
+            // console.log(convertToRaw(newEditorState.getCurrentContent()))
             // debugger;
-        return this.setState( {editorState: newEditorState})
+        // return this.setState( {editorState: newEditorState})
       }
     //   debugger;
         this.setState({editorState});
@@ -193,14 +213,11 @@ onAddLink = (e) => {
 
 
 setSelection = (editorState) => {
-  const rawJson = convertToRaw(this.state.editorState.getCurrentContent())
-  // const { editorState } = this.state;
   const selectionState = editorState.getSelection()
 
     const newSelection = selectionState.merge({
       hasFocus: true
     })
-    // debugger;
     return EditorState.forceSelection(editorState, newSelection);
 }
 
