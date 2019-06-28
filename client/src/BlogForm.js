@@ -23,31 +23,17 @@ import Toolbar, { getBlockStyle } from './toolbar/Toolbar'
 
 const highlightPlugin = createHighlightPlugin();
 
-const myMap = {
-  "entityMap": {
-    "0": {
-        "type": "TITLE",
-        "mutability": "MUTABLE",
-        "data": {
-         "title": ""
-        }
-       }
-  },
+const rawBlock = {
+  "entityMap": {},
   "blocks": [
       {
           "key": "5h45l",
           "text": "",
           "type": "header-one",
           "depth": 0,
-          "entityRanges": [
-            {
-             "offset": 0,
-             "length": 0,
-             "key": "0"
-            }
-           ],
+          "entityRanges": [],
           "inlineStyleRanges": [],
-          "data": {}
+          "data": {title: ""}
       }
   ]
 }
@@ -59,12 +45,9 @@ const myMap = {
 class BlogForm extends React.Component {
   constructor(props) {
     super(props);
-    const title = `<h1 class="public-DraftEditorPlaceholder-root">Hello</h1>`
-    const cState = convertFromRaw(myMap)
-    const blocks = convertFromHTML(title)
-    // debugger;
-    // this.state = {editorState: EditorState.createEmpty()}
-    this.state = {editorState: EditorState.createWithContent(cState)};
+    const convertedContent = convertFromRaw(rawBlock)
+
+    this.state = {editorState: EditorState.createWithContent(convertedContent)};
     this.onChange = (editorState) => {
 
         const selectionKey = editorState.getSelection().getStartKey()
@@ -74,60 +57,14 @@ class BlogForm extends React.Component {
             if (firstBlock.getLength() > 0) {
                 const entityKey = contentState.getLastCreatedEntityKey()
                 const selection = editorState.getSelection()
-                const newSelection = selection.merge({anchorOffset: 0, focusOffset: firstBlock.getLength()})
-                const entity = contentState.getEntity(entityKey)
-                const conStateEntityData = contentState.replaceEntityData("1", {title: firstBlock.getText()})
+                const conStateBlockData = Modifier.setBlockData(contentState, selection, {title: firstBlock.getText()})
+                return this.setState({editorState: EditorState.push(editorState, conStateBlockData)})
 
-                let contentWithTitle = Modifier.applyEntity(
-                    conStateEntityData,
-                    newSelection,
-                    entityKey
-                )
-                // const changeSelectionEditorState = EditorState.moveFocusToEnd(EditorState.moveSelectionToEnd(editorState))
-                const fixSelection = selection.merge({anchorOffset: firstBlock.getLength(), focusOffset: firstBlock.getLength()})
-                // console.dir(EditorState.push)
-                const newEditorState = EditorState.push(editorState, contentWithTitle, "insert-characters")
-                const changeSelectionEditorState = EditorState.forceSelection(newEditorState, fixSelection)
-                // debugger;
-
-                return this.setState({editorState: changeSelectionEditorState})
             }
-            // let mergedContent = editorState.getCurrentContent().mergeEntityData(
-            //     "1", 
-            //     {title: firstBlock.getText()}
-            // )
-            // contentState.createEntity(
-            //     'TITLE',
-            //     'MUTABLE',
-            //     {title: firstBlock.text}
-            // )
-            
-
-            // const newSelection = selection.merge({anchorOffset: firstBlock.getLength(), focusOffset: 0, isBackward: true})
-            // debugger
-            // let contentWithTitle = Modifier.applyEntity(
-            //     contentState,
-            //     selection,
-            //     entityKey
-            // )
-            // console.dir(Modifier.applyEntity)
-            // const newEditorState = EditorState.push(editorState, contentWithTitle, "apply-entity")
-            // console.log(convertToRaw(newEditorState.getCurrentContent()))
-            // debugger;
-        // return this.setState( {editorState: newEditorState})
-      }
-    //   debugger;
+        }
         this.setState({editorState});
     }
-    // this.setEditor = (editor) => {
-    //   this.editor = editor;
-    // };
-    // this.focusEditor = () => {
-    //   if (this.editor) {
-    //     this.editor.focus();
-    //   }
-    // };
-    // debugger;
+
     this.plugins = [
         highlightPlugin,
         addLinkPluginPlugin
