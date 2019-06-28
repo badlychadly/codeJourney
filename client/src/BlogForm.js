@@ -75,19 +75,21 @@ class BlogForm extends React.Component {
                 const entityKey = contentState.getLastCreatedEntityKey()
                 const selection = editorState.getSelection()
                 const newSelection = selection.merge({anchorOffset: 0, focusOffset: firstBlock.getLength()})
-                
+                const entity = contentState.getEntity(entityKey)
+                const conStateEntityData = contentState.replaceEntityData("1", {title: firstBlock.getText()})
+
                 let contentWithTitle = Modifier.applyEntity(
-                    contentState,
+                    conStateEntityData,
                     newSelection,
                     entityKey
                 )
                 // const changeSelectionEditorState = EditorState.moveFocusToEnd(EditorState.moveSelectionToEnd(editorState))
                 const fixSelection = selection.merge({anchorOffset: firstBlock.getLength(), focusOffset: firstBlock.getLength()})
-                console.dir(EditorState.push)
+                // console.dir(EditorState.push)
                 const newEditorState = EditorState.push(editorState, contentWithTitle, "insert-characters")
                 const changeSelectionEditorState = EditorState.forceSelection(newEditorState, fixSelection)
-                
-                debugger;
+                // debugger;
+
                 return this.setState({editorState: changeSelectionEditorState})
             }
             // let mergedContent = editorState.getCurrentContent().mergeEntityData(
