@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addPost } from './actions/posts'
 
@@ -42,13 +42,13 @@ const rawBlock = {
 
 
 
-class BlogForm extends React.Component {
-  constructor(props) {
-    super(props);
-    const convertedContent = convertFromRaw(rawBlock)
-
-    this.state = {editorState: EditorState.createWithContent(convertedContent)};
-    this.onChange = (editorState) => {
+class BlogForm extends Component {
+    // convertedContent = convertFromRaw(rawBlock)
+    state = {editorState: EditorState.createWithContent(convertFromRaw(rawBlock))};
+    onChange = (editorState) => {
+        // debugger;
+        ////////////// INLINE STYLE ON TITLE NOT WORKING BECAUSE OF CODE WITHIN IF STATEMENTS /////////////////
+        ////////////////// CAN BE FIXED WHEN REVISING BLOCKDATA CODE /////////////////
 
         const selectionKey = editorState.getSelection().getStartKey()
         const contentState = editorState.getCurrentContent()
@@ -57,7 +57,7 @@ class BlogForm extends React.Component {
             if (firstBlock.getLength() > 0) {
                 const entityKey = contentState.getLastCreatedEntityKey()
                 const selection = editorState.getSelection()
-                const conStateBlockData = Modifier.setBlockData(contentState, selection, {title: firstBlock.getText()})
+                const conStateBlockData = Modifier.mergeBlockData(contentState, selection, {title: firstBlock.getText()})
                 return this.setState({editorState: EditorState.push(editorState, conStateBlockData)})
 
             }
@@ -65,13 +65,13 @@ class BlogForm extends React.Component {
         this.setState({editorState});
     }
 
-    this.plugins = [
+    plugins = [
         highlightPlugin,
         addLinkPluginPlugin
        ];
 
     //    this.textInput = React.createRef();
-  }
+  
 
 
   moveSelectionToEnd = (editorState) => {
@@ -98,12 +98,12 @@ class BlogForm extends React.Component {
     };
 
 
-  onChange = editorState => {
-    //   debugger;
-    this.setState({
-        editorState
-    });
-};
+//   onChange = editorState => {
+//     //   debugger;
+//     this.setState({
+//         editorState
+//     });
+// };
 
 handleKeyCommand = command => {
   const testUtils = RichUtils
@@ -160,33 +160,12 @@ setSelection = (editorState) => {
     return EditorState.forceSelection(editorState, newSelection);
 }
 
-componentDidMount() {
-//   const contentState = this.state.editorState.getCurrentContent();
-//   const selectionState = this.state.editorState.getSelection();
-//   const cState = convertFromRaw(myMap)
-//   const rawInfo = convertToRaw(this.state.editorState.getCurrentContent())
-//    const testMod = Modifier.setBlockType(contentState, selectionState, "header-one")
-//   // debugger;
-//    const testState = EditorState.push(this.state.editorState, testMod, "change-block-type")
-//    const rawCon = convertToRaw(testState.getCurrentContent())
-//    const editor = Editor
-//    const rich = RichUtils
-        const convert = convertToRaw
-      const dMap = DefaultDraftBlockRenderMap
-  //  debugger;
-  // this.onChange(testState)
-  
-}
-
-
 
 
 navStyleToggle = (e) => {
       e.stopPropagation()
       const newEditorState = this.setSelection(this.state.editorState);
-      const m = Modifier
-    //   debugger;
-
+        
       if (!!e.currentTarget.dataset.name) {
           return this.onChange(newEditorState)
       }
@@ -194,8 +173,13 @@ navStyleToggle = (e) => {
         this.onChange(RichUtils.toggleBlockType(newEditorState, e.currentTarget.dataset.block))
       }
       else {
+          let testRich = RichUtils.toggleInlineStyle(newEditorState, e.currentTarget.dataset.inline)
+        //   let self = this
+        //   console.dir(RichUtils.toggleInlineStyle)
+        // console.dir(RichUtils.toggleInlineStyle)
+        debugger;
         this.onChange(
-          RichUtils.toggleInlineStyle(newEditorState, e.currentTarget.dataset.inline)
+            testRich
       );
 
       }
