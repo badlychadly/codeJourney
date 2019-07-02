@@ -49,19 +49,13 @@ class BlogForm extends Component {
         // debugger;
         ////////////// INLINE STYLE ON TITLE NOT WORKING BECAUSE OF CODE WITHIN IF STATEMENTS /////////////////
         ////////////////// CAN BE FIXED WHEN REVISING BLOCKDATA CODE /////////////////
-
         const selectionKey = editorState.getSelection().getStartKey()
         const contentState = editorState.getCurrentContent()
         const firstBlock = contentState.getFirstBlock()
-        if(editorState.getSelection().getStartKey() === firstBlock.getKey()) {
-            if (firstBlock.getLength() > 0) {
-                const entityKey = contentState.getLastCreatedEntityKey()
-                const selection = editorState.getSelection()
-                const conStateBlockData = Modifier.mergeBlockData(contentState, selection, {title: firstBlock.getText()})
-                return this.setState({editorState: EditorState.push(editorState, conStateBlockData)})
-
-            }
+        if(selectionKey === firstBlock.getKey() && firstBlock.getLength() > 2) {
+            return this.setState({editorState: this.addBlockData(editorState)})
         }
+
         this.setState({editorState});
     }
 
@@ -196,22 +190,21 @@ navStyleToggle = (e) => {
 
   }
 
-//   componentDidUpdate(prevProps, prevState) {
-//     const currentContent = this.state.editorState.getCurrentContent()
-//       const lastEntityK = currentContent.getLastCreatedEntityKey()
-//       const selectionKey = this.state.editorState.getSelection().getStartKey()
-//       const firstBlock = this.state.editorState.getCurrentContent().getFirstBlock()
-//       if(selectionKey === firstBlock.getKey()) {
-//         let newContent = currentContent.mergeEntityData(
-//             "1", 
-//             {title: currentContent.getFirstBlock().getText()}
-//             )
-//         this.onChange(EditorState.push(this.state.editorState, newContent, "apply-entity"))
-//       }
-//     //   console.log(this.state.editorState.getCurrentContent().getFirstBlock().getLength())
-//       console.log(convertToRaw(this.state.editorState.getCurrentContent()))
-//       console.log(this.state.editorState.getCurrentContent().getEntity("1"))
-//   }
+  addBlockData = (editorState) => {
+    const selectionKey = editorState.getSelection().getStartKey()
+    const contentState = editorState.getCurrentContent()
+    const firstBlock = contentState.getFirstBlock()
+    if(selectionKey === firstBlock.getKey()) {
+        if (firstBlock.getLength() > 2) {
+            debugger;
+            const entityKey = contentState.getLastCreatedEntityKey()
+            const selection = editorState.getSelection()
+            const conStateBlockData = Modifier.mergeBlockData(contentState, selection, {title: firstBlock.getText()})
+            return EditorState.push(editorState, conStateBlockData)
+
+        }
+    }
+  }
 
 
   
