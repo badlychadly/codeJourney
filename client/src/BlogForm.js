@@ -14,12 +14,16 @@ import {
     convertFromHTML,
     Modifier,
     getDefaultKeyBinding,
-    DefaultDraftBlockRenderMap
+    DefaultDraftBlockRenderMap,
+    KeyBindingUtil
 } from "draft-js";
+// import Draft from 'draft-js'
 import Editor from "draft-js-plugins-editor";
 import createHighlightPlugin from "./plugins/highlightPlugin";
 import addLinkPluginPlugin from './plugins/addLinkPlugin'
 import Toolbar, { getBlockStyle } from './toolbar/Toolbar'
+
+const {hasCommandModifier} = KeyBindingUtil;
 
 const highlightPlugin = createHighlightPlugin();
 
@@ -113,6 +117,11 @@ handleKeyCommand = command => {
       this.onChange(RichUtils.toggleBlockType(newEState, 'unstyled'))
       return "handled"
     }
+    if (command === 'myeditor-save') {
+        debugger;
+        this.addBlockData(this.state.editorState)
+        return "handled"
+    }
     if (newState) {
         this.onChange(newState);
         return "handled";
@@ -184,12 +193,14 @@ navStyleToggle = (e) => {
       }
 }
 
-  // keyBindingFn = (e) => {
-  //   if (e.keycode === 13) {
-  //     return 'unstyled'
-  //   }
-  //   return getDefaultKeyBinding(e)
-  // }
+  keyBindingFn = (e) => {
+
+    if (e.key === "y" && hasCommandModifier(e) ) {
+        debugger;
+      return 'myeditor-save'
+    }
+    return getDefaultKeyBinding(e)
+  }
 
   handleSave = e => {
       e.stopPropagation()
@@ -204,7 +215,6 @@ navStyleToggle = (e) => {
     if(selectionKey === firstBlock.getKey()) {
         if (firstBlock.getLength() > 2) {
             // console.dir(EditorState.push)
-            const entityKey = contentState.getLastCreatedEntityKey()
             const selection = editorState.getSelection()
             const conStateBlockData = Modifier.mergeBlockData(contentState, selection, {title: firstBlock.getText()})
             const newState = EditorState.push(editorState, conStateBlockData)
@@ -255,7 +265,7 @@ navStyleToggle = (e) => {
         <Editor
           ref="editor"
           editorState={this.state.editorState}
-          // keyBindingFn={this.keyBindingFn}
+          keyBindingFn={this.keyBindingFn}
           blockStyleFn={getBlockStyle}
           handleKeyCommand={this.handleKeyCommand}
           handleBeforeInput={this.handleBeforeInput}

@@ -22,6 +22,10 @@ export default () => {
 			if (hasCommandModifier(e) && e.key === "h") {
 				return "highlight";
 			}
+			// if (e.key === "y" && hasCommandModifier(e) ) {
+			// 	debugger;
+			//   return 'myeditor-save'
+			// }
 			return getDefaultKeyBinding(e)
 		},
 		handleKeyCommand: (command, editorState, { setEditorState }) => {
