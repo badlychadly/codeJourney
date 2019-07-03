@@ -46,15 +46,16 @@ class BlogForm extends Component {
     // convertedContent = convertFromRaw(rawBlock)
     state = {editorState: EditorState.createWithContent(convertFromRaw(rawBlock))};
     onChange = (editorState) => {
+        // const e = Editor
         // debugger;
         ////////////// INLINE STYLE ON TITLE NOT WORKING BECAUSE OF CODE WITHIN IF STATEMENTS /////////////////
         ////////////////// CAN BE FIXED WHEN REVISING BLOCKDATA CODE /////////////////
-        const selectionKey = editorState.getSelection().getStartKey()
-        const contentState = editorState.getCurrentContent()
-        const firstBlock = contentState.getFirstBlock()
-        if(selectionKey === firstBlock.getKey() && firstBlock.getLength() > 2) {
-            return this.setState({editorState: this.addBlockData(editorState)})
-        }
+        // const selectionKey = editorState.getSelection().getStartKey()
+        // const contentState = editorState.getCurrentContent()
+        // const firstBlock = contentState.getFirstBlock()
+        // if(selectionKey === firstBlock.getKey() && firstBlock.getLength() > 2) {
+        //     return this.setState({editorState: this.addBlockData(editorState)})
+        // }
 
         this.setState({editorState});
     }
@@ -158,23 +159,27 @@ setSelection = (editorState) => {
 
 navStyleToggle = (e) => {
       e.stopPropagation()
+      const state = this.state
       const newEditorState = this.setSelection(this.state.editorState);
+    //   debugger;
         
       if (!!e.currentTarget.dataset.name) {
           return this.onChange(newEditorState)
       }
       else if (!!e.currentTarget.dataset.block) {
         this.onChange(RichUtils.toggleBlockType(newEditorState, e.currentTarget.dataset.block))
+        return "handled";
       }
       else {
           let testRich = RichUtils.toggleInlineStyle(newEditorState, e.currentTarget.dataset.inline)
         //   let self = this
         //   console.dir(RichUtils.toggleInlineStyle)
         // console.dir(RichUtils.toggleInlineStyle)
-        debugger;
+        // debugger;
         this.onChange(
             testRich
       );
+      return "handled";
 
       }
 }
@@ -187,7 +192,9 @@ navStyleToggle = (e) => {
   // }
 
   handleSave = e => {
-
+      e.stopPropagation()
+    const newEditorState = this.setSelection(this.state.editorState);
+    this.addBlockData(newEditorState)
   }
 
   addBlockData = (editorState) => {
@@ -196,22 +203,44 @@ navStyleToggle = (e) => {
     const firstBlock = contentState.getFirstBlock()
     if(selectionKey === firstBlock.getKey()) {
         if (firstBlock.getLength() > 2) {
-            debugger;
+            // console.dir(EditorState.push)
             const entityKey = contentState.getLastCreatedEntityKey()
             const selection = editorState.getSelection()
             const conStateBlockData = Modifier.mergeBlockData(contentState, selection, {title: firstBlock.getText()})
-            return EditorState.push(editorState, conStateBlockData)
+            const newState = EditorState.push(editorState, conStateBlockData)
+            // debugger;
+           this.onChange(newState) 
+        //    return "handled"
 
         }
     }
   }
+
+//   handleBeforeInput = (chars) => {
+//     const selectionKey = this.state.editorState.getSelection().getStartKey()
+//     const contentState = this.state.editorState.getCurrentContent()
+//     const firstBlock = contentState.getFirstBlock()
+//     if(selectionKey === firstBlock.getKey()) {
+//         if (firstBlock.getLength() > 2) {
+//             // console.dir(EditorState.push)
+//             const entityKey = contentState.getLastCreatedEntityKey()
+//             const selection = this.state.editorState.getSelection()
+//             const conStateBlockData = Modifier.mergeBlockData(contentState, selection, {title: firstBlock.getText()})
+//             const newState = EditorState.push(this.state.editorState, conStateBlockData)
+//             // debugger;
+//            this.onChange(newState) 
+//            return "handled"
+
+//         }
+//     }
+//   }
 
 
   
 
   render() {
     //   const rawInfo = convertToRaw(this.state.editorState.getCurrentContent())
-      console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+      console.log(convertToRaw(this.state.editorState.getCurrentContent()).blocks[0])
     // debugger;
     return (
       <div style={styles.editor} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>
@@ -229,6 +258,7 @@ navStyleToggle = (e) => {
           // keyBindingFn={this.keyBindingFn}
           blockStyleFn={getBlockStyle}
           handleKeyCommand={this.handleKeyCommand}
+          handleBeforeInput={this.handleBeforeInput}
           onChange={this.onChange}
           plugins={this.plugins}
           placeholder="Hello"
