@@ -1,5 +1,5 @@
 import { RichUtils, getDefaultKeyBinding, KeyBindingUtil} from 'draft-js'
-const {hasCommandModifier} = KeyBindingUtil;
+// const {hasCommandModifier} = KeyBindingUtil;
 
 // background: "rgba(27,31,35,.05)",
 // 				border-radius: "3px",
@@ -18,16 +18,13 @@ export default () => {
 				padding: ".2em .4em"
 			}
 		},
-		keyBindingFn: e => {
-			if (hasCommandModifier(e) && e.key === "h") {
-				return "highlight";
-			}
-			// if (e.key === "y" && hasCommandModifier(e) ) {
-			// 	debugger;
-			//   return 'myeditor-save'
+		// keyBindingFn: e => {
+			// if (hasCommandModifier(e) && e.key === "h") {
+			// 	return "highlight";
 			// }
-			return getDefaultKeyBinding(e)
-		},
+			//
+			// return getDefaultKeyBinding(e)
+		// },
 		handleKeyCommand: (command, editorState, { setEditorState }) => {
 			if (command === "highlight") {
 				setEditorState(RichUtils.toggleInlineStyle(editorState, "HIGHLIGHT"));

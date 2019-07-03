@@ -118,7 +118,6 @@ handleKeyCommand = command => {
       return "handled"
     }
     if (command === 'myeditor-save') {
-        debugger;
         this.addBlockData(this.state.editorState)
         return "handled"
     }
@@ -195,9 +194,12 @@ navStyleToggle = (e) => {
 
   keyBindingFn = (e) => {
 
-    if (e.key === "y" && hasCommandModifier(e) ) {
-        debugger;
+    if (e.key === "s" && hasCommandModifier(e) ) {
+        // debugger;
       return 'myeditor-save'
+    }
+    if (hasCommandModifier(e) && e.key === "h") {
+        return "highlight";
     }
     return getDefaultKeyBinding(e)
   }
