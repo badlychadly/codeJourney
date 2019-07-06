@@ -225,22 +225,18 @@ navStyleToggle = (e) => {
     // }
 //   }
 
-  handleBeforeInput = (chars,editorState) => {
+  handleBeforeInput = (chars, editorState) => {
     const selectionKey = this.state.editorState.getSelection().getStartKey()
     const contentState = this.state.editorState.getCurrentContent()
     const firstBlock = contentState.getFirstBlock()
     if(selectionKey === firstBlock.getKey()) {
         if (firstBlock.getLength() > 2) {
-            // console.dir(EditorState.push)
             const selection = this.state.editorState.getSelection()
             const addText = Modifier.insertText(contentState, selection, chars)
-            const conStateBlockData = Modifier.mergeBlockData(addText, selection, {title: addText.getFirstBlock().getText()})
+            const conStateBlockData = Modifier.mergeBlockData(addText, addText.getSelectionAfter(), {title: addText.getFirstBlock().getText()})
             const newState = EditorState.push(this.state.editorState, conStateBlockData, "change-block-data")
-            const adjustSelection = EditorState.moveFocusToEnd(newState)
-            debugger;
-            console.dir(newState.getLastChangeType)
-            // debugger;
-           this.onChange(adjustSelection) 
+
+           this.onChange(newState) 
            return "handled"
 
         }
