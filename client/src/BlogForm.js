@@ -75,24 +75,13 @@ class BlogForm extends Component {
     //    this.textInput = React.createRef();
   
 
-
-  moveSelectionToEnd = (editorState) => {
-    const content = editorState.getCurrentContent();
-    const blockMap = content.getBlockMap();
-  
-    const key = blockMap.last().getKey();
-    const length = blockMap.last().getLength();
-
-  
-    const selection = new SelectionState({
-      anchorKey: key,
-      anchorOffset: length,
-      focusKey: key,
-      focusOffset: length,
-    });
-  
-    return EditorState.acceptSelection(editorState, selection);
-  };
+componentDidMount() {
+    debugger;
+    if (!!this.props.post) {
+        return this.setState({editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.post.body)))})
+    }
+    this.setState({editorState: EditorState.createWithContent(convertFromRaw(rawBlock))})
+}
 
 
 handleKeyCommand = (command, editorState) => {

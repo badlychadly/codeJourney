@@ -6,6 +6,7 @@ class Api::PostsController < ApplicationController
     end
 
     def create
+        # binding.pry
         post = @author.posts.create(post_params)
         render json: post
     end
