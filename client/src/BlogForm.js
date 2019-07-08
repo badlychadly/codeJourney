@@ -113,7 +113,9 @@ handleKeyCommand = (command, editorState) => {
         }
     }
     if (command === 'myeditor-save') {
-        this.addBlockData(this.state.editorState)
+        const title = editorState.getCurrentContent().getFirstBlock().getData().get("title")
+        // debugger;
+        this.props.addPost({title: title, body: convertToRaw(editorState.getCurrentContent())})
         return "handled"
     }
     if (newState) {
@@ -226,17 +228,18 @@ navStyleToggle = (e) => {
 //   }
 
   handleBeforeInput = (chars, editorState) => {
-    const selectionKey = editorState.getSelection().getStartKey()
-    const contentState = editorState.getCurrentContent()
+    const selectionKey = this.state.editorState.getSelection().getStartKey()
+    const contentState = this.state.editorState.getCurrentContent()
     const firstBlock = contentState.getFirstBlock()
     if(selectionKey === firstBlock.getKey()) {
+        // console.log(firstBlock.getLength())
         if (firstBlock.getLength() > 5) {
             const hasInlineStyle = !!editorState.getCurrentInlineStyle().size ? editorState.getCurrentInlineStyle() : false;
-            const selection = editorState.getSelection()
+            const selection = this.state.editorState.getSelection()
             const addText = Modifier.insertText(contentState, selection, chars, hasInlineStyle)
             const conStateBlockData = Modifier.mergeBlockData(addText, addText.getSelectionAfter(), {title: addText.getFirstBlock().getText()})
             // debugger;
-            const newState = EditorState.push(editorState, conStateBlockData, "change-block-data")
+            const newState = EditorState.push(this.state.editorState, conStateBlockData, "change-block-data")
 
            this.onChange(newState) 
            return "handled"
