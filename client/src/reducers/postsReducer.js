@@ -10,18 +10,13 @@ export default function combinePostReducers(state = {
 , action) {
     switch (action.type) {
         case "GET_POSTS":
-            return {posts: postsReducer(state.posts, action)}
+            return {...state, 
+                posts: postsReducer(state.posts, action)
+            }
         case "ADD_POST":
         return {
-            ...state,
-            posts: {
-                ...state.posts,
-                byId: {
-                    ...state.posts.byId,
-                     [action.post.id]: action.post
-                },
-                allIds: state.posts.allIds.concat(action.post.id)
-            }
+            posts: addPostReducer(state.posts, action),
+            currentPost: currentPostReducer(state.currentPost, action)
         }
         case "UPDATE_POST":
         const post = state.posts.byId[action.post.id]
@@ -47,4 +42,18 @@ function postsReducer(state, action) {
         byId: action.posts.reduce((acc,p) => ({...acc, [p.id]: p}), {}),
         allIds: action.posts.map(p => p.id)
     }
+}
+
+function addPostReducer(state, action) {
+    return {
+        byId: {
+            ...state.byId,
+             [action.post.id]: action.post
+        },
+        allIds: state.allIds.concat(action.post.id)
+    }
+}
+
+function currentPostReducer(state, action) {
+    return action.post
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addPost } from './actions/posts'
+import { addPost, updatePost } from './actions/posts'
 
 
 import {
@@ -269,6 +269,12 @@ const styles = {
     }
   };
 
+  const mapStateToProps = state => {
+      return ({
+          currentPost: state.currentPost
+      })
+  }
 
 
-export default connect(null, { addPost })(BlogForm);
+
+export default connect(null, { addPost, updatePost })(BlogForm);
