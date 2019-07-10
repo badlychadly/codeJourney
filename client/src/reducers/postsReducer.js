@@ -20,16 +20,13 @@ export default function combinePostReducers(state = {
         }
         case "UPDATE_POST":
         const post = state.posts.byId[action.post.id]
-        debugger;
+        // debugger;
             return {
                 ...state,
                 ...state.posts,
                 byId: {
                     ...state.posts.byId,
-                    [action.post.id]: {
-                        ...post,
-                        ...action.post
-                    }
+                    [post.id]: action.post
                 }
             }
         default:

@@ -49,7 +49,6 @@ const rawBlock = {
 class BlogForm extends Component {
     // convertedContent = convertFromRaw(rawBlock)
     state = {
-        currentPostId: false,
         editorState: EditorState.createWithContent(convertFromRaw(rawBlock))
     };
     onChange = (editorState) => {
@@ -94,7 +93,15 @@ handleKeyCommand = (command, editorState) => {
     if (command === 'myeditor-save') {
         const title = editorState.getCurrentContent().getFirstBlock().getData().get("title")
         // debugger;
-        this.props.addPost({title: title, body: convertToRaw(editorState.getCurrentContent())}).then(({post}) => this.setState({currentPostId: post.id}))
+        if (!!editorState.getLastChangeType()) {
+            if (!!this.props.post) {
+                // debugger;
+                this.props.updatePost(this.props.post.id, {title: title, body: convertToRaw(editorState.getCurrentContent())})
+            } else {
+                this.props.addPost({title: title, body: convertToRaw(editorState.getCurrentContent())}, this.props.history)
+    
+            }   
+        }
         return "handled"
     }
     if (newState) {
@@ -232,8 +239,7 @@ navStyleToggle = (e) => {
 
   render() {
     //   const rawInfo = convertToRaw(this.state.editorState.getCurrentContent())
-      console.log(convertToRaw(this.state.editorState.getCurrentContent()))
-    // debugger;
+    //   console.log(convertToRaw(this.state.editorState.getCurrentContent()))
     return (
       <div style={styles.editor} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>
       
@@ -277,4 +283,4 @@ const styles = {
 
 
 
-export default connect(null, { addPost, updatePost })(BlogForm);
+export default connect(mapStateToProps, { addPost, updatePost })(BlogForm);

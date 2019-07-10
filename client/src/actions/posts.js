@@ -8,7 +8,7 @@ export const getPosts = () => {
     }
 }
 
-export const addPost = (postData) => {
+export const addPost = (postData, history) => {
     // debugger;
     let data = new FormData()
     data.append('title', postData.title)
@@ -22,6 +22,7 @@ export const addPost = (postData) => {
         .then(resp => resp.json())
         .then(post => {
             // debugger;
+            !!post && history.replace(`/posts/${post.id}/edit`)
             return dispatch({type: "ADD_POST", post})})
     }
 }
