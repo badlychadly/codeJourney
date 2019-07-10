@@ -9,7 +9,7 @@ export const getPosts = () => {
 }
 
 export const addPost = (postData) => {
-    debugger;
+    // debugger;
     let data = new FormData()
     data.append('title', postData.title)
     data.append('body', JSON.stringify(postData.body))
@@ -21,7 +21,19 @@ export const addPost = (postData) => {
         })
         .then(resp => resp.json())
         .then(post => {
-            debugger;
-            dispatch({type: "ADD_POST", post})})
+            // debugger;
+            return dispatch({type: "ADD_POST", post})})
+    }
+}
+
+export const updatePost = (id, postData) => {
+    return dispatch => {
+        return fetch(`http://10.0.0.99:3001/api/posts/${id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json', "Accepts": "application/json" },
+            body: JSON.stringify({title: postData.title, body: JSON.stringify(postData.body)})
+        })
+        .then(resp => resp.json())
+        .then(post => dispatch({type: "UPDATE_POST", post}))
     }
 }

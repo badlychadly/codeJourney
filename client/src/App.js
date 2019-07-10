@@ -28,7 +28,7 @@ class App extends Component {
       {/* < BlogForm  /> */}
       <Switch>
         <Route exact path="/posts/new" component={BlogForm} />
-        <Route exact path={`/posts/:postId`} render={routerProps => <BlogForm post={this.props.byId[25]} {...routerProps} />} />
+        <Route exact path={`/posts/:postId`} render={routerProps => <BlogForm post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
         <Route exact path="/blog_ui" component={BlogUi} />
       </Switch> 
       </div>

@@ -48,21 +48,12 @@ const rawBlock = {
 
 class BlogForm extends Component {
     // convertedContent = convertFromRaw(rawBlock)
-    state = {editorState: EditorState.createWithContent(convertFromRaw(rawBlock))};
+    state = {
+        currentPostId: false,
+        editorState: EditorState.createWithContent(convertFromRaw(rawBlock))
+    };
     onChange = (editorState) => {
-        const con = Editor
-        // debugger;
-        ////////////// INLINE STYLE ON TITLE NOT WORKING BECAUSE OF CODE WITHIN IF STATEMENTS /////////////////
-        ////////////////// CAN BE FIXED WHEN REVISING BLOCKDATA CODE /////////////////
-        // const selectionKey = editorState.getSelection().getStartKey()
-        // const contentState = editorState.getCurrentContent()
-        // const firstBlock = contentState.getFirstBlock()
-        // if(selectionKey === firstBlock.getKey() && firstBlock.getLength() > 2) {
-        //     return this.setState({editorState: this.addBlockData(editorState)})
-        // }
-
         this.setState((prevState, props) => {
-            // debugger;
             return {editorState}
         });
     }
@@ -76,11 +67,10 @@ class BlogForm extends Component {
   
 
 componentDidMount() {
-    debugger;
+    // debugger;
     if (!!this.props.post) {
         return this.setState({editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.post.body)))})
     }
-    this.setState({editorState: EditorState.createWithContent(convertFromRaw(rawBlock))})
 }
 
 
@@ -104,7 +94,7 @@ handleKeyCommand = (command, editorState) => {
     if (command === 'myeditor-save') {
         const title = editorState.getCurrentContent().getFirstBlock().getData().get("title")
         // debugger;
-        this.props.addPost({title: title, body: convertToRaw(editorState.getCurrentContent())})
+        this.props.addPost({title: title, body: convertToRaw(editorState.getCurrentContent())}).then(({post}) => this.setState({currentPostId: post.id}))
         return "handled"
     }
     if (newState) {
@@ -222,7 +212,7 @@ navStyleToggle = (e) => {
     const firstBlock = contentState.getFirstBlock()
     if(selectionKey === firstBlock.getKey()) {
         // console.log(firstBlock.getLength())
-        if (firstBlock.getLength() > 5) {
+        if (firstBlock.getLength() >= 4) {
             const hasInlineStyle = !!editorState.getCurrentInlineStyle().size ? editorState.getCurrentInlineStyle() : false;
             const selection = this.state.editorState.getSelection()
             const addText = Modifier.insertText(contentState, selection, chars, hasInlineStyle)
