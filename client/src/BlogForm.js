@@ -54,7 +54,6 @@ class BlogForm extends Component {
         editorState: EditorState.createWithContent(convertFromRaw(rawBlock))
     })
     onChange = (editorState) => {
-        debugger;
         this.setState((prevState, props) => {
             // debugger;
             return {editorState}
@@ -109,6 +108,7 @@ handleKeyCommand = (command, editorState) => {
 
 
 keyBindingFn = (e) => {
+    debugger;
     if (e.key === "s" && hasCommandModifier(e) ) {
         // debugger;
       return 'myeditor-save'
@@ -118,6 +118,9 @@ keyBindingFn = (e) => {
     }
     if (KeyBindingUtil.hasCommandModifier(e) && e.key === "k") {
         return "add-link";
+    }
+    if (e.key === 'Backspace' && this.state.editorState.getCurrentContent().getFirstBlock().getKey() === this.state.editorState.getSelection().getStartKey() && !this.state.editorState.getCurrentContent().getFirstBlock().getText()) {
+        return "handled"
     }
     return getDefaultKeyBinding(e)
   }
