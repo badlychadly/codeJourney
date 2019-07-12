@@ -20,7 +20,7 @@ import {
 // import Draft from 'draft-js'
 import Editor from "draft-js-plugins-editor";
 import createHighlightPlugin from "./plugins/highlightPlugin";
-import addLinkPluginPlugin from './plugins/addLinkPlugin'
+import addLinkPlugin from './plugins/addLinkPlugin'
 import Toolbar, { getBlockStyle } from './toolbar/Toolbar'
 
 const {hasCommandModifier} = KeyBindingUtil;
@@ -48,29 +48,26 @@ const rawBlock = {
 
 class BlogForm extends Component {
     // convertedContent = convertFromRaw(rawBlock)
-    state = {
+    state = !!this.props.post ? ({
+        editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.post.body)))
+    }) : ({
         editorState: EditorState.createWithContent(convertFromRaw(rawBlock))
-    };
+    })
     onChange = (editorState) => {
+        debugger;
         this.setState((prevState, props) => {
+            // debugger;
             return {editorState}
         });
     }
 
     plugins = [
         highlightPlugin,
-        addLinkPluginPlugin
+        addLinkPlugin
        ];
 
-    //    this.textInput = React.createRef();
+       textInput = React.createRef();
   
-
-componentDidMount() {
-    // debugger;
-    if (!!this.props.post) {
-        return this.setState({editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.post.body)))})
-    }
-}
 
 
 handleKeyCommand = (command, editorState) => {
@@ -95,7 +92,6 @@ handleKeyCommand = (command, editorState) => {
         // debugger;
         if (!!editorState.getLastChangeType()) {
             if (!!this.props.post) {
-                // debugger;
                 this.props.updatePost(this.props.post.id, {title: title, body: convertToRaw(editorState.getCurrentContent())})
             } else {
                 this.props.addPost({title: title, body: convertToRaw(editorState.getCurrentContent())}, this.props.history)
@@ -119,6 +115,9 @@ keyBindingFn = (e) => {
     }
     if (hasCommandModifier(e) && e.key === "h") {
         return "highlight";
+    }
+    if (KeyBindingUtil.hasCommandModifier(e) && e.key === "k") {
+        return "add-link";
     }
     return getDefaultKeyBinding(e)
   }
@@ -144,7 +143,10 @@ onAddLink = (e) => {
   );
   const entityKey = contentWithEntity.getLastCreatedEntityKey();
   // const rawhtml = convert
-  this.onChange(this.setSelection(RichUtils.toggleLink(newEditorState, selection, entityKey)));
+  const richUtilsLink = RichUtils.toggleLink(newEditorState, selection, entityKey)
+  const hasLink = RichUtils.currentBlockContainsLink(richUtilsLink)
+//   debugger;
+  this.onChange(this.setSelection(richUtilsLink));
   return "handled";
 };
 
@@ -195,23 +197,6 @@ navStyleToggle = (e) => {
     this.addBlockData(newEditorState)
   }
 
-//   addBlockData = (editorState) => {
-//     const selectionKey = editorState.getSelection().getStartKey()
-//     const contentState = editorState.getCurrentContent()
-//     const firstBlock = contentState.getFirstBlock()
-    // if(selectionKey === firstBlock.getKey()) {
-    //     if (firstBlock.getLength() > 2) {
-            // console.dir(EditorState.push)
-            // const selection = editorState.getSelection()
-            // const conStateBlockData = Modifier.mergeBlockData(contentState, selection, {title: firstBlock.getText()})
-            // const newState = EditorState.push(editorState, conStateBlockData, "change-block-data")
-            // debugger;
-        //    this.onChange(newState) 
-        //    return "handled"
-
-    //     }
-    // }
-//   }
 
   handleBeforeInput = (chars, editorState) => {
     const selectionKey = this.state.editorState.getSelection().getStartKey()
@@ -232,14 +217,14 @@ navStyleToggle = (e) => {
 
         }
     }
+    return "not-handled"
   }
 
 
   
 
   render() {
-    //   const rawInfo = convertToRaw(this.state.editorState.getCurrentContent())
-    //   console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+      console.log(convertToRaw(this.state.editorState.getCurrentContent()))
     return (
       <div style={styles.editor} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>
       
