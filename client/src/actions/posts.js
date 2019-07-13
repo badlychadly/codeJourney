@@ -48,8 +48,8 @@ export const deletePost = id => {
         })
         .then(resp => resp.json())
         .then(post => {
-            debugger;
-            dispatch({type: 'DELETE_POST', post})
+            // debugger;
+            dispatch({type: 'DELETE_POST', postId: post.id })
         })
         .catch(err => {
             debugger

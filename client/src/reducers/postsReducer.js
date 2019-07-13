@@ -20,30 +20,33 @@ export default function combinePostReducers(state = {
         }
         case "UPDATE_POST":
         const post = state.posts.byId[action.post.id]
-        // debugger;
             return {
                 ...state,
-                ...state.posts,
-                byId: {
-                    ...state.posts.byId,
-                    [post.id]: action.post
+                posts: {...state.posts,
+                    byId: {
+                        ...state.posts.byId,
+                        [post.id]: action.post
+                    }
                 }
             }
 
         case "DELETE_POST":
-        const {[action.id]: _, ...newById} = state.posts.byId
+        // USE CONSOLE.TIME TO SEE IF ARRAY.FILTER IS FASTER
+        const {[action.postId]: _, ...newById} = state.posts.byId
         const allIds = state.posts.allIds
-        let toDeleteIndex = allIds.indexOf(action.id)
+        let toDeleteIndex = allIds.indexOf(action.postId)
+        // debugger;
         return {
             ...state,
-            ...state.posts,
-            byId: {
-                ...newById
-            },
-            allIds: [
-                ...allIds.slice(0, toDeleteIndex),
-                ...allIds.slice(toDeleteIndex + 1)
-            ]
+            posts: {
+                byId: {
+                    ...newById
+                },
+                allIds: [
+                    ...allIds.slice(0, toDeleteIndex),
+                    ...allIds.slice(toDeleteIndex + 1)
+                ]
+            }
             
         }
         default:
