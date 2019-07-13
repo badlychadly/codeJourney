@@ -38,3 +38,21 @@ export const updatePost = (id, postData) => {
         .then(post => dispatch({type: "UPDATE_POST", post}))
     }
 }
+
+export const deletePost = id => {
+    return dispatch => {
+        return fetch(`http://10.0.0.99:3001/api/posts/${id}`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: id})
+        })
+        .then(resp => resp.json())
+        .then(post => {
+            debugger;
+            dispatch({type: 'DELETE_POST', post})
+        })
+        .catch(err => {
+            debugger
+        })
+    }
+}

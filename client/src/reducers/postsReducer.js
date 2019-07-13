@@ -29,6 +29,23 @@ export default function combinePostReducers(state = {
                     [post.id]: action.post
                 }
             }
+
+        case "DELETE_POST":
+        const {[action.id]: _, ...newById} = state.posts.byId
+        const allIds = state.posts.allIds
+        let toDeleteIndex = allIds.indexOf(action.id)
+        return {
+            ...state,
+            ...state.posts,
+            byId: {
+                ...newById
+            },
+            allIds: [
+                ...allIds.slice(0, toDeleteIndex),
+                ...allIds.slice(toDeleteIndex + 1)
+            ]
+            
+        }
         default:
             return state;
     }

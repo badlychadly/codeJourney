@@ -6,15 +6,11 @@ import { addPost, updatePost } from './actions/posts'
 import {
 	// Editor,
     EditorState,
-    SelectionState,
-    ContentState,
     RichUtils,
     convertToRaw,
     convertFromRaw,
-    convertFromHTML,
     Modifier,
     getDefaultKeyBinding,
-    DefaultDraftBlockRenderMap,
     KeyBindingUtil
 } from "draft-js";
 // import Draft from 'draft-js'
@@ -108,7 +104,6 @@ handleKeyCommand = (command, editorState) => {
 
 
 keyBindingFn = (e) => {
-    debugger;
     if (e.key === "s" && hasCommandModifier(e) ) {
         // debugger;
       return 'myeditor-save'
@@ -227,7 +222,7 @@ navStyleToggle = (e) => {
   
 
   render() {
-      console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+    //   console.log(convertToRaw(this.state.editorState.getCurrentContent()))
     return (
       <div style={styles.editor} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>
       

@@ -16,6 +16,14 @@ class Api::PostsController < ApplicationController
         render json: post
     end
 
+    def destroy
+        # binding.pry
+        post = @author.posts.find_by(id: params[:id])
+        post.destroy
+        # binding.pry
+        render json: post
+    end
+
     private 
 
     def post_params

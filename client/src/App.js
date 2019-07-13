@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getPosts } from './actions/posts'
+import { getPosts, deletePost } from './actions/posts'
 import BlogForm from './BlogForm'
 import BlogUi from './BlogUi'
 
@@ -24,7 +24,10 @@ class App extends Component {
     return Object.keys(this.props.byId).length ? (
       <div className="">
       {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
-      {this.props.allIds.map(id => <li key={id}>{this.props.byId[id].title}</li>)}
+      {this.props.allIds.map(id => {
+      return <li key={id}>{this.props.byId[id].title} <button onClick={() => this.props.deletePost(id)}>delete</button></li>
+      }
+    )}
       {/* < BlogForm  /> */}
       <Switch>
         <Route exact path="/posts/new" component={BlogForm} />
@@ -45,4 +48,4 @@ const mapStateToProps = (state) => {
   })
 }
 
-export default connect(mapStateToProps, { getPosts })(App);
+export default connect(mapStateToProps, { getPosts, deletePost })(App);
