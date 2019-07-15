@@ -19,15 +19,9 @@ export default function combinePostReducers(state = {
             currentPost: currentPostReducer(state.currentPost, action)
         }
         case "UPDATE_POST":
-        const post = state.posts.byId[action.post.id]
             return {
                 ...state,
-                posts: {...state.posts,
-                    byId: {
-                        ...state.posts.byId,
-                        [post.id]: action.post
-                    }
-                }
+                posts: updatePostReducer(state.posts, action)
             }
 
         case "DELETE_POST":
@@ -62,16 +56,27 @@ function currentPostReducer(state, action) {
 
 function deletePostReducer(state, action) {
     const {[action.postId]: _, ...newById} = state.byId
-        const allIds = state.allIds
-        let toDeleteIndex = allIds.indexOf(action.postId)
+    const allIds = state.allIds
+    let toDeleteIndex = allIds.indexOf(action.postId)
         // debugger;
-        return {
-            byId: {
-                ...newById
-            },
-            allIds: [
-                ...allIds.slice(0, toDeleteIndex),
-                ...allIds.slice(toDeleteIndex + 1)
-            ] 
+    return {
+        byId: {
+            ...newById
+        },
+        allIds: [
+            ...allIds.slice(0, toDeleteIndex),
+            ...allIds.slice(toDeleteIndex + 1)
+        ] 
+    }
+}
+
+function updatePostReducer(state, action) {
+    const post = state.byId[action.post.id]
+    return {
+        ...state,
+        byId: {
+            ...state.byId,
+            [post.id]: action.post
         }
+    }
 }
