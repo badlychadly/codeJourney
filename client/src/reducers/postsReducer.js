@@ -32,23 +32,8 @@ export default function combinePostReducers(state = {
 
         case "DELETE_POST":
         // USE CONSOLE.TIME TO SEE IF ARRAY.FILTER IS FASTER
-        const {[action.postId]: _, ...newById} = state.posts.byId
-        const allIds = state.posts.allIds
-        let toDeleteIndex = allIds.indexOf(action.postId)
-        // debugger;
-        return {
-            ...state,
-            posts: {
-                byId: {
-                    ...newById
-                },
-                allIds: [
-                    ...allIds.slice(0, toDeleteIndex),
-                    ...allIds.slice(toDeleteIndex + 1)
-                ]
-            }
-            
-        }
+        return {...state, posts: deletePostReducer(state.posts, action)}
+        
         default:
             return state;
     }
@@ -73,4 +58,20 @@ function addPostReducer(state, action) {
 
 function currentPostReducer(state, action) {
     return action.post
+}
+
+function deletePostReducer(state, action) {
+    const {[action.postId]: _, ...newById} = state.byId
+        const allIds = state.allIds
+        let toDeleteIndex = allIds.indexOf(action.postId)
+        // debugger;
+        return {
+            byId: {
+                ...newById
+            },
+            allIds: [
+                ...allIds.slice(0, toDeleteIndex),
+                ...allIds.slice(toDeleteIndex + 1)
+            ] 
+        }
 }
