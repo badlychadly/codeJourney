@@ -3,29 +3,39 @@ import React, {Component} from 'react'
 
 export default class Navbar extends Component {
 
+    state = {
+        show: false
+    }
+
+    toggle = () => {
+        this.setState((prevState, props) => {
+            return {show: !this.state.show}
+        })
+    }
+
 
     render() {
         return (
 
-            <ul class="navbar">
+            <ul className="navbar">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
+                    <a className="nav-link active" href="#">Active</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
+                <li className="nav-item dropdown">
+                    <a onClick={this.toggle} className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div style={{display: this.state.show ? 'block' : 'none'}} className="dropdown-menu">
+                        <a className="dropdown-item" href="#">Action</a>
+                        <a className="dropdown-item" href="#">Another action</a>
+                        <a className="dropdown-item" href="#">Something else here</a>
+                        <div className="dropdown-divider"></div>
+                        <a className="dropdown-item" href="#">Separated link</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li className="nav-item">
+                    <a className="nav-link" href="#">Link</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Disabled</a>
+                <li className="nav-item">
+                    <a className="nav-link" href="#">Disabled</a>
                 </li>
             </ul>
         )
