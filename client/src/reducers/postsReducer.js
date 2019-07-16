@@ -14,10 +14,10 @@ export default function combinePostReducers(state = {
                 posts: postsReducer(state.posts, action)
             }
         case "ADD_POST":
-        return {
-            posts: addPostReducer(state.posts, action),
-            currentPost: currentPostReducer(state.currentPost, action)
-        }
+            return {
+                posts: addPostReducer(state.posts, action),
+                currentPost: currentPostReducer(state.currentPost, action)
+            }
         case "UPDATE_POST":
             return {
                 ...state,
@@ -26,7 +26,7 @@ export default function combinePostReducers(state = {
 
         case "DELETE_POST":
         // USE CONSOLE.TIME TO SEE IF ARRAY.FILTER IS FASTER
-        return {...state, posts: deletePostReducer(state.posts, action)}
+            return {...state, posts: deletePostReducer(state.posts, action)}
         
         default:
             return state;

@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { getPosts, deletePost } from './actions/posts'
 import BlogForm from './BlogForm'
 import BlogUi from './BlogUi'
+import Navbar from './Navbar'
 
 class App extends Component {
 
@@ -23,17 +24,18 @@ class App extends Component {
     // debugger;
     return Object.keys(this.props.byId).length ? (
       <div className="">
-      {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
-      {this.props.allIds.map(id => {
-      return <li key={id}>{this.props.byId[id].title} <button onClick={() => this.props.deletePost(id)}>delete</button></li>
-      }
-    )}
-      {/* < BlogForm  /> */}
-      <Switch>
-        <Route exact path="/posts/new" component={BlogForm} />
-        <Route exact path={`/posts/:postId/edit`} render={routerProps => <BlogForm post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
-        <Route exact path="/blog_ui" component={BlogUi} />
-      </Switch> 
+      <Navbar/>
+        {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
+        {this.props.allIds.map(id => {
+        return <li key={id}>{this.props.byId[id].title} <button onClick={() => this.props.deletePost(id)}>delete</button></li>
+        }
+      )}
+        {/* < BlogForm  /> */}
+        <Switch>
+          <Route exact path="/posts/new" component={BlogForm} />
+          <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <BlogForm post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
+          <Route exact path="/blog_ui" component={BlogUi} />
+        </Switch> 
       </div>
     ) :
     <h2>Loading</h2>

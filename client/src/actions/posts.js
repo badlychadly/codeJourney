@@ -22,7 +22,7 @@ export const addPost = (postData, history) => {
         .then(resp => resp.json())
         .then(post => {
             // debugger;
-            !!post && history.replace(`/posts/${post.id}/edit`)
+            !!post && history.replace(`/posts/drafts/${post.id}/edit`)
             return dispatch({type: "ADD_POST", post})})
     }
 }
