@@ -222,6 +222,7 @@ navStyleToggle = (e) => {
   
 
   render() {
+    //   debugger;
     //   console.log(convertToRaw(this.state.editorState.getCurrentContent()))
     return (
       <div style={styles.editor} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>

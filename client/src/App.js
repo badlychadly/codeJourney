@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPosts, deletePost } from './actions/posts'
 import BlogForm from './BlogForm'
@@ -27,14 +27,17 @@ class App extends Component {
       <Navbar/>
         {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
         {this.props.allIds.map(id => {
-        return <li key={id}>{this.props.byId[id].title} <button onClick={() => this.props.deletePost(id)}>delete</button></li>
+          // CONTENT NOT CHANGING WHEN LINKS ARE CLICKED
+          return <li key={id}><Link to={`/posts/${id}`} >{this.props.byId[id].title}</Link></li>
+        // return <li key={id}>{this.props.byId[id].title} <button onClick={() => this.props.deletePost(id)}>delete</button></li>
+
         }
       )}
         {/* < BlogForm  /> */}
         <Switch>
           <Route exact path="/posts/new" component={BlogForm} />
           <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <BlogForm post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
-          <Route exact path="/blog_ui" component={BlogUi} />
+          <Route exact path='/posts/:postId' render={routerProps => <BlogForm key={routerProps.match.params.postId} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
         </Switch> 
       </div>
     ) :

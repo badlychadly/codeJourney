@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { NavLink } from 'react-router-dom'
 
 
 export default class Navbar extends Component {
@@ -18,8 +19,8 @@ export default class Navbar extends Component {
         return (
 
             <ul className="navbar">
-                <li class="nav-item">
-                    <a className="nav-link active" href="#">Active</a>
+                <li className="nav-item">
+                    <NavLink to="/" activeClassName="nav-link" >Home</NavLink>
                 </li>
                 <li className="nav-item dropdown">
                     <a onClick={this.toggle} className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
