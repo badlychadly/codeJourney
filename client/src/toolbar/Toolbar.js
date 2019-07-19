@@ -54,28 +54,28 @@ class BlockStyleToolbar extends React.Component {
 
 		return (
 			<div className="RichEditor-controls menu-inline-wrapper">
-				<div className="menu-inline-inner">
+				{/* <div className="menu-inline-inner"> */}
 				{/* <HeaderStyleDropdown
 					headerOptions={HEADER_TYPES}
 					active={blockType}
 					onToggle={this.props.onToggle}
 				/> */}
 
-				<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={{display: "inline-block"}}>
-				<button className="menu-inline-btn">H</button>
+				{/* <div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={{display: "inline-block"}}>
+				<button className="menu-inline-btn">H</button> */}
 				
-					<div className="header-dropdown" hidden={this.state.hidden} style={{position: "absolute", left: "2px", top: "auto"}}>
+					{/* <div className="header-dropdown" hidden={this.state.hidden} style={{position: "absolute", left: "2px", top: "auto"}}>
 					{HEADER_TYPES.map(heading => {
 						// console.log(heading.value)
 						return <button className="header-btn" data-block={heading.style} onClick={this.props.onToggle} key={heading.label}>{heading.label}</button>
 					})}
-				</div>
+				</div> */}
 
 				
-				</div>
+				{/* </div> */}
 
 
-				{BLOCK_TYPES.map(type => {
+				{/* {BLOCK_TYPES.map(type => {
 					return (
 						<BlockStyleBtns
 							active={type.style === blockType}
@@ -86,11 +86,11 @@ class BlockStyleToolbar extends React.Component {
 							type={type}
 						/>
 					);
-				})}
+				})} */}
 
 				<InlineStyleBtns toggle={this.props.onToggle} onAddLink={this.props.onAddLink} />
 
-				</div>
+				{/* </div> */}
 				{/* { this.state.show &&
 					<div className="header-dropdown" onMouseLeave={this.handleMouseOut}>
 					{HEADER_TYPES.map(heading => {

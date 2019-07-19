@@ -225,13 +225,29 @@ navStyleToggle = (e) => {
     //   debugger;
     //   console.log(convertToRaw(this.state.editorState.getCurrentContent()))
     return (
-      <div style={styles.editor} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>
+      <div style={this.props.readOnly ? (styles.editor): {}} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>
+
+
+
+      {/* <div className="btn-group">
+        <button type="button" className="btn-test">testing</button>
+        <button type="button" className="btn-test">test</button>
+        <button type="button" className="btn-test">test</button>
+        <button type="button" className="btn-test">test</button>
+        <button type="button" className="btn-test">test</button>
+      </div> */}
+
+
+
+
       
-       <Toolbar
-    editorState={this.state.editorState}
-    onToggle={this.navStyleToggle}
-    onAddLink={this.onAddLink}
-    />
+      { !this.props.readOnly &&
+          <Toolbar
+       editorState={this.state.editorState}
+       onToggle={this.navStyleToggle}
+       onAddLink={this.onAddLink}
+       />
+      }
 
     
         <Editor
@@ -244,6 +260,7 @@ navStyleToggle = (e) => {
           onChange={this.onChange}
           plugins={this.plugins}
           placeholder="Hello"
+          readOnly={this.props.readOnly}
         />
         <button onClick={this.handleSave}>save</button>
       </div>
@@ -252,11 +269,7 @@ navStyleToggle = (e) => {
 }
 
 const styles = {
-    editor: {
-      border: '1px solid gray',
-     minHeight: 'calc(100vh - 65px)',
-     overflow: 'hidden'
-    }
+    editor: {margin: 'auto',maxWidth: '728px', border: 'none'}
   };
 
   const mapStateToProps = state => {
