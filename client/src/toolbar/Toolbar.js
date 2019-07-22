@@ -61,21 +61,21 @@ class BlockStyleToolbar extends React.Component {
 					onToggle={this.props.onToggle}
 				/> */}
 
-				{/* <div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={{display: "inline-block"}}>
-				<button className="menu-inline-btn">H</button> */}
+				<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={{display: "inline-block", width: "100%"}}>
+				<button className="menu-inline-btn">H</button>
 				
-					{/* <div className="header-dropdown" hidden={this.state.hidden} style={{position: "absolute", left: "2px", top: "auto"}}>
+					<div className="header-dropdown" hidden={this.state.hidden} style={{position: "absolute", left: "40px", top: "0"}}>
 					{HEADER_TYPES.map(heading => {
 						// console.log(heading.value)
 						return <button className="header-btn" data-block={heading.style} onClick={this.props.onToggle} key={heading.label}>{heading.label}</button>
 					})}
-				</div> */}
+				</div>
 
 				
-				{/* </div> */}
+				</div>
 
 
-				{/* {BLOCK_TYPES.map(type => {
+				{BLOCK_TYPES.map(type => {
 					return (
 						<BlockStyleBtns
 							active={type.style === blockType}
@@ -86,7 +86,7 @@ class BlockStyleToolbar extends React.Component {
 							type={type}
 						/>
 					);
-				})} */}
+				})}
 
 				<InlineStyleBtns toggle={this.props.onToggle} onAddLink={this.props.onAddLink} />
 
