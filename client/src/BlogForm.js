@@ -262,7 +262,6 @@ navStyleToggle = (e) => {
           placeholder="Hello"
           readOnly={this.props.readOnly}
         />
-        <button onClick={this.handleSave}>save</button>
       </div>
     );
   }

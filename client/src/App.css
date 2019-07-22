@@ -51,7 +51,7 @@
 
 
 .DraftEditor-root {
-  margin-top: 3rem;
+  margin: 3rem 2rem 0 2rem;
   padding: 1rem;
   overflow: hidden;
 }
@@ -87,6 +87,7 @@
       -ms-flex-pack: center;
       justify-content: center;
       margin: 7rem 0;
+      /* margin-right: .5rem; */
 }
 
 /* .menu-inline-wrapper {
@@ -118,6 +119,7 @@
   border: 0;
   padding: .5rem;
   outline: none;
+  width: 100%;
 }
 
 .header-btn:hover {
