@@ -20,7 +20,7 @@ export default function InlineStyleToolbar(props) {
         <button className="menu-inline-btn highlight" data-inline="HIGHLIGHT" onClick={props.toggle}>
           <span>IC</span>
         </button>
-                <button id="link_url" onClick={props.onAddLink} className="add-link">
+        <button id="link_url" onClick={props.onAddLink} className="menu-inline-btn">
           <i className="material-icons">L</i>
         </button>
     </>
