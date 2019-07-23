@@ -7,6 +7,7 @@ import { getPosts, deletePost } from './actions/posts'
 import BlogForm from './BlogForm'
 import BlogUi from './BlogUi'
 import Navbar from './Navbar'
+import PostDisplay from './PostDisplay'
 
 class App extends Component {
 
@@ -37,7 +38,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/posts/new" readOnly={false} component={BlogForm} />
           <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <BlogForm readOnly={false} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
-          <Route exact path='/posts/:postId' render={routerProps => <BlogForm key={routerProps.match.params.postId} post={this.props.byId[routerProps.match.params.postId]} readOnly={true} {...routerProps} />} />
+          <Route exact path='/posts/:postId' render={routerProps => <PostDisplay key={routerProps.match.params.postId} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
         </Switch> 
       </div>
     ) :

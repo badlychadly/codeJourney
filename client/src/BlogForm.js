@@ -229,15 +229,6 @@ navStyleToggle = (e) => {
 
 
 
-      {/* <div className="btn-group">
-        <button type="button" className="btn-test">testing</button>
-        <button type="button" className="btn-test">test</button>
-        <button type="button" className="btn-test">test</button>
-        <button type="button" className="btn-test">test</button>
-        <button type="button" className="btn-test">test</button>
-      </div> */}
-
-
 
 
       
@@ -260,7 +251,7 @@ navStyleToggle = (e) => {
           onChange={this.onChange}
           plugins={this.plugins}
           placeholder="Hello"
-          readOnly={this.props.readOnly}
+          readOnly={true}
         />
       </div>
     );
