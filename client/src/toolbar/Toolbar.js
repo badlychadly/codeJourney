@@ -23,6 +23,8 @@ export function getBlockStyle(block) {
 	switch (block.getType()) {
 		case "blockquote":
 			return "RichEditor-blockquote";
+		case "unstyled":
+			return "RichEditor-unstyled"
 		default:
 			return null;
 	}

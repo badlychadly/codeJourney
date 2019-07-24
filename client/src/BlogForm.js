@@ -240,19 +240,21 @@ navStyleToggle = (e) => {
        />
       }
 
-    
-        <Editor
-          ref="editor"
-          editorState={this.state.editorState}
-          keyBindingFn={this.keyBindingFn}
-          blockStyleFn={getBlockStyle}
-          handleKeyCommand={this.handleKeyCommand}
-          handleBeforeInput={this.handleBeforeInput}
-          onChange={this.onChange}
-          plugins={this.plugins}
-          placeholder="Hello"
-          readOnly={true}
-        />
+        <div className="editor-container">
+            <Editor
+                ref="editor"
+                editorState={this.state.editorState}
+                keyBindingFn={this.keyBindingFn}
+                blockStyleFn={getBlockStyle}
+                handleKeyCommand={this.handleKeyCommand}
+                handleBeforeInput={this.handleBeforeInput}
+                onChange={this.onChange}
+                plugins={this.plugins}
+                placeholder="Hello"
+                readOnly={this.props.readOnly}
+            />
+
+        </div>
       </div>
     );
   }

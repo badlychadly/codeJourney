@@ -1,3 +1,11 @@
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 .App {
   text-align: center;
 }
@@ -50,12 +58,14 @@
 
 
 .DraftEditor-root {
-  margin: 3rem auto 0 2rem;
   padding: 1rem;
   overflow: hidden;
-  /* margin-top: 3rem; */
-  max-width: 728px;
   width: 100%;
+}
+
+.editor-container {
+  margin: 3rem auto 0 2rem;
+  max-width: 728px;
 }
 
 .menu-inline-wrapper {
@@ -175,6 +185,11 @@
   font-family: Menlo,Monaco,"Courier New",Courier,monospace;
   background: rgba(0,0,0,.05);
   white-space: pre-wrap;
+}
+
+
+.RichEditor-unstyled {
+  font-size: 18px;
 }
 
 

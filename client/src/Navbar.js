@@ -23,7 +23,7 @@ export default class Navbar extends Component {
                     <NavLink to="/" activeClassName="nav-link" >Home</NavLink>
                 </li>
                 <li className="nav-item dropdown">
-                    <a onClick={this.toggle} className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <span style={{cursor: 'pointer'}} onClick={this.toggle} className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</span>
                     <div style={{display: this.state.show ? 'block' : 'none'}} className="dropdown-menu">
                         <a className="dropdown-item" href="#">Action</a>
                         <a className="dropdown-item" href="#">Another action</a>
