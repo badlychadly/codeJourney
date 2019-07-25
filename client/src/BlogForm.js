@@ -11,12 +11,14 @@ import {
     convertFromRaw,
     Modifier,
     getDefaultKeyBinding,
-    KeyBindingUtil
+    KeyBindingUtil,
+    AtomicBlockUtils
 } from "draft-js";
 // import Draft from 'draft-js'
 import Editor from "draft-js-plugins-editor";
 import createHighlightPlugin from "./plugins/highlightPlugin";
 import addLinkPlugin from './plugins/addLinkPlugin'
+import { mediaBlockRenderer } from './entities/mediaBlockRenderer'
 import Toolbar, { getBlockStyle } from './toolbar/Toolbar'
 
 const {hasCommandModifier} = KeyBindingUtil;
@@ -219,6 +221,36 @@ navStyleToggle = (e) => {
   }
 
 
+
+  onAddImage = e => {
+    e.preventDefault();
+    e.stopPropagation()
+    const editorState = this.state.editorState;
+    const urlValue = window.prompt("Paste Image Link");
+    const contentState = editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+        "image",
+        "IMMUTABLE",
+        { src: urlValue }
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(
+        editorState,
+        { currentContent: contentStateWithEntity },
+        "create-entity"
+    );
+    // debugger;
+    this.onChange(
+        AtomicBlockUtils.insertAtomicBlock(
+            newEditorState,
+            entityKey,
+            " "
+        )
+         
+    );
+};
+
+
   
 
   render() {
@@ -237,6 +269,7 @@ navStyleToggle = (e) => {
        editorState={this.state.editorState}
        onToggle={this.navStyleToggle}
        onAddLink={this.onAddLink}
+       onAddImage={this.onAddImage}
        />
       }
 
@@ -245,6 +278,7 @@ navStyleToggle = (e) => {
                 ref="editor"
                 editorState={this.state.editorState}
                 keyBindingFn={this.keyBindingFn}
+                blockRendererFn={mediaBlockRenderer}
                 blockStyleFn={getBlockStyle}
                 handleKeyCommand={this.handleKeyCommand}
                 handleBeforeInput={this.handleBeforeInput}

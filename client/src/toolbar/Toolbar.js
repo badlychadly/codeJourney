@@ -25,6 +25,8 @@ export function getBlockStyle(block) {
 			return "RichEditor-blockquote";
 		case "unstyled":
 			return "RichEditor-unstyled"
+		case "atomic":
+			return "RichEditor-atomic"
 		default:
 			return null;
 	}
@@ -90,7 +92,7 @@ class BlockStyleToolbar extends React.Component {
 					);
 				})}
 
-				<InlineStyleBtns toggle={this.props.onToggle} onAddLink={this.props.onAddLink} />
+				<InlineStyleBtns toggle={this.props.onToggle} onAddLink={this.props.onAddLink} onAddImage={this.props.onAddImage} />
 
 				{/* </div> */}
 				{/* { this.state.show &&
