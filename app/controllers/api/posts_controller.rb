@@ -24,6 +24,13 @@ class Api::PostsController < ApplicationController
         render json: post
     end
 
+    def upload
+        # binding.pry
+       image =  Cloudinary::Uploader.upload(params['file'])
+       render json: image
+
+    end
+
     private 
 
     def post_params
