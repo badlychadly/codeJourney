@@ -11,6 +11,26 @@ import PostDisplay from './PostDisplay'
 
 class App extends Component {
 
+  state = {selectedFile: null}
+
+  onChangeHandler=event=>{
+    this.setState({
+      selectedFile: event.target.files[0],
+      loaded: 0,
+    })
+  }
+
+  onClickHandler = () => {
+    const data = new FormData() 
+    data.append('file', this.state.selectedFile)
+    fetch('http://10.0.0.99:3001/api/upload',{
+      method: 'POST',
+      body: data
+    }).then(resp => resp.json()).then(info => {
+      debugger;
+    })
+}
+
 
   componentDidMount() {
     this.props.getPosts()
@@ -26,6 +46,8 @@ class App extends Component {
     return Object.keys(this.props.byId).length ? (
       <div className="">
       <Navbar/>
+      <input type="file" name="file" onChange={this.onChangeHandler}/>
+      <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
         {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
         {this.props.allIds.map(id => {
           // CONTENT NOT CHANGING WHEN LINKS ARE CLICKED
