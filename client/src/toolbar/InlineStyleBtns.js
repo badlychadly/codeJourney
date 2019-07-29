@@ -23,9 +23,10 @@ export default function InlineStyleToolbar(props) {
         <button id="link_url" onClick={props.onAddLink} className="menu-inline-btn">
           <i className="material-icons">L</i>
         </button>
-        <button onClick={props.onAddImage} className="menu-inline-btn">
+        {/* <button onClick={props.openInputFile} className="menu-inline-btn">
           <i>IMG</i>
-        </button>
+        </button> */}
+        
     </>
     )
 } 

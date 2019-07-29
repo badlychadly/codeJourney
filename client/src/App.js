@@ -8,6 +8,7 @@ import BlogForm from './BlogForm'
 import BlogUi from './BlogUi'
 import Navbar from './Navbar'
 import PostDisplay from './PostDisplay'
+import TestFileInput from './testFileInput'
 
 class App extends Component {
 
@@ -19,20 +20,25 @@ class App extends Component {
       loaded: 0,
     })
   }
+  inputRef = React.createRef()
 
   onClickHandler = () => {
-    const data = new FormData() 
-    data.append('file', this.state.selectedFile)
-    fetch('http://10.0.0.99:3001/api/upload',{
-      method: 'POST',
-      body: data
-    }).then(resp => resp.json()).then(info => {
-      debugger;
-    })
+    const myInput = <input type="file" name="file" />
+    this.inputRef.current.click()
+    // debugger;
+    // const data = new FormData() 
+    // data.append('file', this.state.selectedFile)
+    // fetch('http://10.0.0.99:3001/api/upload',{
+    //   method: 'POST',
+    //   body: data
+    // }).then(resp => resp.json()).then(info => {
+    //   debugger;
+    // })
 }
 
 
   componentDidMount() {
+    // debugger;
     this.props.getPosts()
   }
 
@@ -46,8 +52,9 @@ class App extends Component {
     return Object.keys(this.props.byId).length ? (
       <div className="">
       <Navbar/>
-      <input type="file" name="file" onChange={this.onChangeHandler}/>
-      <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
+      {/* <TestFileInput myInputRef={this.inputRef} /> */}
+      {/* <input type="file" name="file" onChange={this.onChangeHandler}/> */}
+      <button type="button" className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
         {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
         {this.props.allIds.map(id => {
           // CONTENT NOT CHANGING WHEN LINKS ARE CLICKED

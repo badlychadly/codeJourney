@@ -35,17 +35,26 @@ export function getBlockStyle(block) {
 class BlockStyleToolbar extends React.Component {
 
 	state = {
-		hidden: true
+		hideHeaders: true,
+		hideImgDropdown: true
 	}
 
 	handleMouseEnter = e => {
-		// debugger;
-		this.setState({hidden: false})
+		if (!!e.currentTarget.dataset.imgDropdown) {
+			return this.setState({hideImgDropdown: false})
+		}
+		if (!!e.currentTarget.dataset.headingDropdown) {
+			return this.setState({hideHeaders: false})
+		}
 	}
 
 	handleMouseLeave = e => {
-		// debugger;
-		this.setState({hidden: true})
+		if (!!e.currentTarget.dataset.imgDropdown) {
+			return this.setState({hideImgDropdown: true})
+		}
+		if (!!e.currentTarget.dataset.headingDropdown) {
+			return this.setState({hideHeaders: true})
+		}
 	}
 
 	render() {
@@ -65,10 +74,10 @@ class BlockStyleToolbar extends React.Component {
 					onToggle={this.props.onToggle}
 				/> */}
 
-				<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={{display: "inline-block", width: "100%"}}>
+				<div onMouseEnter={this.handleMouseEnter} data-heading-dropdown="true" onMouseLeave={this.handleMouseLeave} style={{display: "inline-block", width: "100%"}}>
 				<button className="menu-inline-btn">H</button>
 				
-					<div className="header-dropdown" hidden={this.state.hidden} style={{position: "absolute", left: "40px", top: "0"}}>
+					<div className="header-dropdown" hidden={this.state.hideHeaders} style={{position: "absolute", left: "40px", top: "0"}}>
 					{HEADER_TYPES.map(heading => {
 						// console.log(heading.value)
 						return <button className="header-btn" data-block={heading.style} onClick={this.props.onToggle} key={heading.label}>{heading.label}</button>
@@ -92,17 +101,21 @@ class BlockStyleToolbar extends React.Component {
 					);
 				})}
 
-				<InlineStyleBtns toggle={this.props.onToggle} onAddLink={this.props.onAddLink} onAddImage={this.props.onAddImage} />
+				<InlineStyleBtns openInputFile={this.props.openInputFile} fileInput={this.props.fileInput} toggle={this.props.onToggle} onAddLink={this.props.onAddLink} onAddImage={this.props.onAddImage} />
 
-				{/* </div> */}
-				{/* { this.state.show &&
-					<div className="header-dropdown" onMouseLeave={this.handleMouseOut}>
-					{HEADER_TYPES.map(heading => {
-						// console.log(heading.value)
-						return <button className="header-btn" data-block={heading.style} onClick={this.props.onToggle} key={heading.label}>{heading.label}</button>
-					})}
+				<div onMouseEnter={this.handleMouseEnter} data-img-dropdown="true" onMouseLeave={this.handleMouseLeave} style={{display: "inline-block", width: "100%"}}>
+				<button onClick={this.props.openInputFile} className="menu-inline-btn">
+					<i>IMG</i>
+				</button>
+				
+					<div className="header-dropdown" hidden={this.state.hideImgDropdown} style={{position: "absolute", left: "40px", bottom: "0"}}>
+						<button className="header-btn" data-block="url" onClick={this.props.openInputFile}>URL</button>
+						<button className="header-btn" data-block="choose" onClick={this.props.openInputFile}>Choose</button>
+					</div>
 				</div>
-				} */}
+				<input type="file" style={{display: "none"}} name="file" onChange={this.props.onAddImage} ref={this.props.fileInput}/>
+
+				
 			</div>
 		);
 	}

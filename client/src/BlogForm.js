@@ -63,7 +63,7 @@ class BlogForm extends Component {
         addLinkPlugin
        ];
 
-       textInput = React.createRef();
+       fileInput = React.createRef();
   
 
 
@@ -222,33 +222,74 @@ navStyleToggle = (e) => {
 
 
 
-  onAddImage = e => {
+  openInputFile = e => {
     e.preventDefault();
-    e.stopPropagation()
-    const editorState = this.state.editorState;
-    const urlValue = window.prompt("Paste Image Link");
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-        "image",
-        "IMMUTABLE",
-        { src: urlValue }
-    );
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(
-        editorState,
-        { currentContent: contentStateWithEntity },
-        "create-entity"
-    );
+    e.stopPropagation();
     // debugger;
-    this.onChange(
-        AtomicBlockUtils.insertAtomicBlock(
-            newEditorState,
-            entityKey,
-            " "
-        )
-         
-    );
+    if (e.currentTarget.dataset.block === 'choose') {
+        return this.fileInput.current.click()
+        
+    } else {
+        const editorState = this.state.editorState;
+        const urlValue = window.prompt("Paste Image Link");
+        const contentState = editorState.getCurrentContent();
+        const contentStateWithEntity = contentState.createEntity(
+            "image",
+            "IMMUTABLE",
+            { src: urlValue }
+        );
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+        const newEditorState = EditorState.set(
+            editorState,
+            { currentContent: contentStateWithEntity },
+            "create-entity"
+        );
+        // debugger;
+        this.onChange(
+            AtomicBlockUtils.insertAtomicBlock(
+                newEditorState,
+                entityKey,
+                " "
+            )
+        );
+    }
 };
+
+onAddImage = (e) => {
+    const file = e.target.files[0]
+    const data = new FormData() 
+    data.append('file', file)
+    fetch('http://10.0.0.99:3001/api/upload',{
+      method: 'POST',
+      body: data
+    })
+    .then(res => res.json())
+    .then(imgInfo => {
+        const editorState = this.state.editorState;
+        // const urlValue = window.prompt("Paste Image Link");
+        const contentState = editorState.getCurrentContent();
+        const contentStateWithEntity = contentState.createEntity(
+            "image",
+            "IMMUTABLE",
+            { src: imgInfo.secure_url }
+        );
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+        const newEditorState = EditorState.set(
+            editorState,
+            { currentContent: contentStateWithEntity },
+            "create-entity"
+        );
+        this.onChange(
+            AtomicBlockUtils.insertAtomicBlock(
+                newEditorState,
+                entityKey,
+                " "
+            )
+             
+        );
+
+    })
+}
 
 
   
@@ -270,6 +311,8 @@ navStyleToggle = (e) => {
        onToggle={this.navStyleToggle}
        onAddLink={this.onAddLink}
        onAddImage={this.onAddImage}
+       fileInput={this.fileInput}
+       openInputFile={this.openInputFile}
        />
       }
 
