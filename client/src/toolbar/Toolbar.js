@@ -5,17 +5,17 @@ import BlockStyleBtns from "./BlockStyleBtns";
 import InlineStyleBtns from './InlineStyleBtns'
 
 export const BLOCK_TYPES = [
-	{ label: " “ ” ", style: "blockquote" },
-	{ label: "UL", style: "unordered-list-item" },
-	{ label: "OL", style: "ordered-list-item" },
-	{ label: "{ }", style: "code-block" }
+	{ label: "code", style: "blockquote", title: "code-block" },
+	{ label: "format_list_bulleted", style: "unordered-list-item", title: "unordered-list" },
+	{ label: "format_list_numbered", style: "ordered-list-item", title: "ordered-list" }
+	// { label: "{ }", style: "code-block" }
 ];
 
 export const HEADER_TYPES = [
-	{ label: "(None)", style: "unstyled" },
-	{ label: "H1", style: "header-one" },
-	{ label: "H2", style: "header-two" },
-	{ label: "H3", style: "header-three" }
+	{ label: "looks_one", style: "header-one", title: "title-1" },
+	{ label: "looks_two", style: "header-two", title: "title-2" },
+	{ label: "looks_3", style: "header-three", title: "title-3" },
+	{ label: "exposure_zero", style: "unstyled", title: "none" }
 ];
 
 export function getBlockStyle(block) {
@@ -75,12 +75,16 @@ class BlockStyleToolbar extends React.Component {
 				/> */}
 
 				<div onMouseEnter={this.handleMouseEnter} data-heading-dropdown="true" onMouseLeave={this.handleMouseLeave} style={{display: "inline-block", width: "100%"}}>
-				<button className="menu-inline-btn">H</button>
+				<button className="menu-inline-btn" title="format-size">
+					<i class="material-icons">format_size</i>
+				</button>
 				
 					<div className="header-dropdown" hidden={this.state.hideHeaders} style={{position: "absolute", left: "40px", top: "0"}}>
 					{HEADER_TYPES.map(heading => {
 						// console.log(heading.value)
-						return <button className="header-btn" data-block={heading.style} onClick={this.props.onToggle} key={heading.label}>{heading.label}</button>
+						return <button className="header-btn" data-block={heading.style} title={heading.title} onClick={this.props.onToggle} key={heading.label}>
+							<i class="material-icons">{heading.label}</i>
+						</button>
 					})}
 				</div>
 
@@ -101,16 +105,20 @@ class BlockStyleToolbar extends React.Component {
 					);
 				})}
 
-				<InlineStyleBtns openInputFile={this.props.openInputFile} fileInput={this.props.fileInput} toggle={this.props.onToggle} onAddLink={this.props.onAddLink} onAddImage={this.props.onAddImage} />
+				<InlineStyleBtns toggle={this.props.onToggle} onAddLink={this.props.onAddLink} onAddImage={this.props.onAddImage} />
 
 				<div onMouseEnter={this.handleMouseEnter} data-img-dropdown="true" onMouseLeave={this.handleMouseLeave} style={{display: "inline-block", width: "100%"}}>
-				<button onClick={this.props.openInputFile} className="menu-inline-btn">
-					<i>IMG</i>
+				<button onClick={this.props.openInputFile} title="add-image" className="menu-inline-btn">
+				<i className="material-icons">image</i>
 				</button>
 				
 					<div className="header-dropdown" hidden={this.state.hideImgDropdown} style={{position: "absolute", left: "40px", bottom: "0"}}>
-						<button className="header-btn" data-block="url" onClick={this.props.openInputFile}>URL</button>
-						<button className="header-btn" data-block="choose" onClick={this.props.openInputFile}>Choose</button>
+						<button className="header-btn" data-block="url" title="use img link" onClick={this.props.openInputFile}>
+							<i className="material-icons">attachment</i>
+						</button>
+						<button className="header-btn" data-block="choose" title="choose from library" onClick={this.props.openInputFile}>
+							<i className="material-icons">photo_library</i>
+						</button>
 					</div>
 				</div>
 				<input type="file" style={{display: "none"}} name="file" onChange={this.props.onAddImage} ref={this.props.fileInput}/>

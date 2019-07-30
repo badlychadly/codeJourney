@@ -44,7 +44,7 @@ const rawBlock = {
 
 
 
-class BlogForm extends Component {
+class PostEditor extends Component {
     // convertedContent = convertFromRaw(rawBlock)
     state = !!this.props.post ? ({
         editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.post.body)))
@@ -349,4 +349,4 @@ const styles = {
 
 
 
-export default connect(mapStateToProps, { addPost, updatePost })(BlogForm);
+export default connect(mapStateToProps, { addPost, updatePost })(PostEditor);

@@ -192,11 +192,6 @@ html {
   font-size: 18px;
 }
 
-.RichEditor-atomic {
-  
-}
-
-
 
 .navbar {
   display: -webkit-box;
@@ -278,3 +273,7 @@ html {
   background-color: transparent;
   border: 0;
 }
+
+/* .material-icons {
+	font-size: 100%;
+} */

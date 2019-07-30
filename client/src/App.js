@@ -4,41 +4,17 @@ import './App.css';
 import { Route, Switch, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPosts, deletePost } from './actions/posts'
-import BlogForm from './BlogForm'
-import BlogUi from './BlogUi'
+import PostEditor from './PostEditor'
 import Navbar from './Navbar'
 import PostDisplay from './PostDisplay'
-import TestFileInput from './testFileInput'
 
 class App extends Component {
 
-  state = {selectedFile: null}
-
-  onChangeHandler=event=>{
-    this.setState({
-      selectedFile: event.target.files[0],
-      loaded: 0,
-    })
-  }
   inputRef = React.createRef()
 
-  onClickHandler = () => {
-    const myInput = <input type="file" name="file" />
-    this.inputRef.current.click()
-    // debugger;
-    // const data = new FormData() 
-    // data.append('file', this.state.selectedFile)
-    // fetch('http://10.0.0.99:3001/api/upload',{
-    //   method: 'POST',
-    //   body: data
-    // }).then(resp => resp.json()).then(info => {
-    //   debugger;
-    // })
-}
 
 
   componentDidMount() {
-    // debugger;
     this.props.getPosts()
   }
 
@@ -52,21 +28,17 @@ class App extends Component {
     return Object.keys(this.props.byId).length ? (
       <div className="">
       <Navbar/>
-      {/* <TestFileInput myInputRef={this.inputRef} /> */}
-      {/* <input type="file" name="file" onChange={this.onChangeHandler}/> */}
-      <button type="button" className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
         {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
         {this.props.allIds.map(id => {
-          // CONTENT NOT CHANGING WHEN LINKS ARE CLICKED
           return <li key={id}><Link to={`/posts/${id}`} >{this.props.byId[id].title}</Link></li>
         // return <li key={id}>{this.props.byId[id].title} <button onClick={() => this.props.deletePost(id)}>delete</button></li>
 
         }
       )}
-        {/* < BlogForm  /> */}
+        {/* < PostEditor  /> */}
         <Switch>
-          <Route exact path="/posts/new" readOnly={false} component={BlogForm} />
-          <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <BlogForm readOnly={false} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
+          <Route exact path="/posts/new" readOnly={false} component={PostEditor} />
+          <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <PostEditor readOnly={false} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
           <Route exact path='/posts/:postId' render={routerProps => <PostDisplay key={routerProps.match.params.postId} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
         </Switch> 
       </div>
@@ -76,7 +48,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state)
   return ({
     byId: state.posts.byId,
     allIds: state.posts.allIds

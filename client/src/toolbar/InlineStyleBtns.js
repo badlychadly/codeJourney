@@ -5,27 +5,24 @@ export default function InlineStyleToolbar(props) {
 
     return (
         <>
-          <button className="menu-inline-btn underline" data-inline="UNDERLINE" onClick={props.toggle}>
-          U
+          <button className="menu-inline-btn underline" data-inline="UNDERLINE" title="underline" onClick={props.toggle}>
+            <i class="material-icons">format_underlined</i>
         </button>
-        <button className="menu-inline-btn bold" data-inline="BOLD" onClick={props.toggle}>
-          <b>B</b>
+        <button className="menu-inline-btn bold" data-inline="BOLD" title="bold" onClick={props.toggle}>
+          <i class="material-icons">format_bold</i>
         </button>
-        <button className="menu-inline-btn italic" data-inline="ITALIC" onClick={props.toggle}>
-          <em>I</em>
+        <button className="menu-inline-btn italic" data-inline="ITALIC" title="italic" onClick={props.toggle}>
+          <i class="material-icons">format_italic</i>
         </button>
-        <button className="menu-inline-btn strikethrough" data-inline="STRIKETHROUGH" onClick={props.toggle}>
-          abc
+        <button className="menu-inline-btn strikethrough" data-inline="STRIKETHROUGH" title="strikethrough" onClick={props.toggle}>
+          <i class="material-icons">strikethrough_s</i>
         </button>
-        <button className="menu-inline-btn highlight" data-inline="HIGHLIGHT" onClick={props.toggle}>
-          <span>IC</span>
+        <button className="menu-inline-btn highlight" data-inline="HIGHLIGHT" title="inline-code" onClick={props.toggle}>
+          <i class="material-icons">highlight</i>
         </button>
-        <button id="link_url" onClick={props.onAddLink} className="menu-inline-btn">
-          <i className="material-icons">L</i>
+        <button id="link_url" onClick={props.onAddLink} title="link" className="menu-inline-btn">
+          <i className="material-icons">insert_link</i>
         </button>
-        {/* <button onClick={props.openInputFile} className="menu-inline-btn">
-          <i>IMG</i>
-        </button> */}
         
     </>
     )

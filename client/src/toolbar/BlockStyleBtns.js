@@ -11,8 +11,8 @@ class BlockStyleButton extends React.Component {
 		}
 
 		return (
-			<button data-block={this.props.style} className={`${className} menu-inline-btn`} onClick={this.props.onToggle}>
-				{this.props.label}
+			<button data-block={this.props.style} title={this.props.type.title} className={`${className} menu-inline-btn`} onClick={this.props.onToggle}>
+				<i class="material-icons">{this.props.label}</i>
 			</button>
 		);
 	}
