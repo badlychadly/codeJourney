@@ -14,12 +14,13 @@ import {
     KeyBindingUtil,
     AtomicBlockUtils
 } from "draft-js";
-// import Draft from 'draft-js'
+import Draft from 'draft-js'
 import Editor from "draft-js-plugins-editor";
 import createHighlightPlugin from "./plugins/highlightPlugin";
 import addLinkPlugin from './plugins/addLinkPlugin'
 import { mediaBlockRenderer } from './entities/mediaBlockRenderer'
 import Toolbar, { getBlockStyle } from './toolbar/Toolbar'
+import TestModal from './testModal'
 
 const {hasCommandModifier} = KeyBindingUtil;
 
@@ -73,7 +74,8 @@ handleKeyCommand = (command, editorState) => {
         this.state.editorState,
         command
     );
-    // debugger;
+    console.dir(Draft.Editor)
+    debugger;
     if (command === "split-block") {
         const blockType = editorState.getCurrentContent().getLastBlock().getType()
       const checkMod = Modifier.splitBlock(this.state.editorState.getCurrentContent(), this.state.editorState.getSelection())
@@ -302,7 +304,7 @@ onAddImage = (e) => {
 
 
 
-
+        {/* < TestModal /> */}
 
       
       { !this.props.readOnly &&

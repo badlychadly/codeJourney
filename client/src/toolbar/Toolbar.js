@@ -3,6 +3,7 @@ import { EditorState, Editor, RichUtils, AtomicBlockUtils } from "draft-js";
 import BlockStyleBtns from "./BlockStyleBtns";
 // import HeaderStyleDropdown from "./HeaderStyleDropdown";
 import InlineStyleBtns from './InlineStyleBtns'
+import TestModal from '../testModal'
 
 export const BLOCK_TYPES = [
 	{ label: "code", style: "blockquote", title: "code-block" },
@@ -36,7 +37,8 @@ class BlockStyleToolbar extends React.Component {
 
 	state = {
 		hideHeaders: true,
-		hideImgDropdown: true
+		hideImgDropdown: true,
+		showModal: false
 	}
 
 	handleMouseEnter = e => {
@@ -55,6 +57,10 @@ class BlockStyleToolbar extends React.Component {
 		if (!!e.currentTarget.dataset.headingDropdown) {
 			return this.setState({hideHeaders: true})
 		}
+	}
+
+	toggleModal = e => {
+		this.setState({showModal: !this.state.showModal})
 	}
 
 	render() {
@@ -116,13 +122,16 @@ class BlockStyleToolbar extends React.Component {
 						<button className="header-btn" data-block="url" title="use img link" onClick={this.props.openInputFile}>
 							<i className="material-icons">attachment</i>
 						</button>
-						<button className="header-btn" data-block="choose" title="choose from library" onClick={this.props.openInputFile}>
+						<button className="header-btn" data-block="choose" title="add new photo" onClick={this.props.openInputFile}>
+							<i class="material-icons">wb_cloudy</i>
+						</button>
+						<button className="header-btn" onClick={this.toggleModal} title="choose from existing">
 							<i className="material-icons">photo_library</i>
 						</button>
 					</div>
 				</div>
 				<input type="file" style={{display: "none"}} name="file" onChange={this.props.onAddImage} ref={this.props.fileInput}/>
-
+				< TestModal show={this.state.showModal} toggle={this.toggleModal} />
 				
 			</div>
 		);
