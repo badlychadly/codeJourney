@@ -131,7 +131,9 @@ class BlockStyleToolbar extends React.Component {
 					</div>
 				</div>
 				<input type="file" style={{display: "none"}} name="file" onChange={this.props.onAddImage} ref={this.props.fileInput}/>
-				< TestModal show={this.state.showModal} toggle={this.toggleModal} />
+				{ this.state.showModal &&
+					< TestModal getImage={this.props.getImage} show={this.state.showModal} toggle={this.toggleModal} />
+				}
 				
 			</div>
 		);

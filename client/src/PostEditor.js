@@ -293,6 +293,11 @@ onAddImage = (e) => {
     })
 }
 
+getImage = e => {
+    debugger
+   return e.target.src
+}
+
 
   
 
@@ -315,6 +320,7 @@ onAddImage = (e) => {
        onAddImage={this.onAddImage}
        fileInput={this.fileInput}
        openInputFile={this.openInputFile}
+       getImage={this.getImage}
        />
       }
 
