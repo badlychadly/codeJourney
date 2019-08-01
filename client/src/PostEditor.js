@@ -20,7 +20,7 @@ import createHighlightPlugin from "./plugins/highlightPlugin";
 import addLinkPlugin from './plugins/addLinkPlugin'
 import { mediaBlockRenderer } from './entities/mediaBlockRenderer'
 import Toolbar, { getBlockStyle } from './toolbar/Toolbar'
-import TestModal from './testModal'
+import ImageModal from './ImageModal'
 
 const {hasCommandModifier} = KeyBindingUtil;
 
@@ -75,7 +75,7 @@ handleKeyCommand = (command, editorState) => {
         command
     );
     console.dir(Draft.Editor)
-    debugger;
+    // debugger;
     if (command === "split-block") {
         const blockType = editorState.getCurrentContent().getLastBlock().getType()
       const checkMod = Modifier.splitBlock(this.state.editorState.getCurrentContent(), this.state.editorState.getSelection())
@@ -294,8 +294,32 @@ onAddImage = (e) => {
 }
 
 getImage = e => {
-    debugger
-   return e.target.src
+    // debugger
+    e.preventDefault()
+    e.stopPropagation()
+
+   const editorState = this.state.editorState;
+        const urlValue = e.target.src
+        const contentState = editorState.getCurrentContent();
+        const contentStateWithEntity = contentState.createEntity(
+            "image",
+            "IMMUTABLE",
+            { src: urlValue }
+        );
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+        const newEditorState = EditorState.set(
+            editorState,
+            { currentContent: contentStateWithEntity },
+            "create-entity"
+        );
+        // debugger;
+        this.onChange(
+            AtomicBlockUtils.insertAtomicBlock(
+                newEditorState,
+                entityKey,
+                " "
+            )
+        );
 }
 
 
@@ -309,7 +333,7 @@ getImage = e => {
 
 
 
-        {/* < TestModal /> */}
+        {/* < ImageModal /> */}
 
       
       { !this.props.readOnly &&

@@ -3,7 +3,7 @@ import { EditorState, Editor, RichUtils, AtomicBlockUtils } from "draft-js";
 import BlockStyleBtns from "./BlockStyleBtns";
 // import HeaderStyleDropdown from "./HeaderStyleDropdown";
 import InlineStyleBtns from './InlineStyleBtns'
-import TestModal from '../testModal'
+import ImageModal from '../ImageModal'
 
 export const BLOCK_TYPES = [
 	{ label: "code", style: "blockquote", title: "code-block" },
@@ -61,6 +61,11 @@ class BlockStyleToolbar extends React.Component {
 
 	toggleModal = e => {
 		this.setState({showModal: !this.state.showModal})
+	}
+
+	getImage = e => {
+		this.props.getImage(e)
+		this.toggleModal(e)
 	}
 
 	render() {
@@ -132,7 +137,7 @@ class BlockStyleToolbar extends React.Component {
 				</div>
 				<input type="file" style={{display: "none"}} name="file" onChange={this.props.onAddImage} ref={this.props.fileInput}/>
 				{ this.state.showModal &&
-					< TestModal getImage={this.props.getImage} show={this.state.showModal} toggle={this.toggleModal} />
+					< ImageModal getImage={this.getImage} show={this.state.showModal} toggle={this.toggleModal} />
 				}
 				
 			</div>

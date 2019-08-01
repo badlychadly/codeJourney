@@ -290,6 +290,7 @@ html {
     overflow-y: auto;
     /* display: block; */
     padding-right: 17px;
+    display: flex;
 }
 
 .modal-dialog {
@@ -346,6 +347,8 @@ html {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
 }
 
 .modal-footer {
