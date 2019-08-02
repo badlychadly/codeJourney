@@ -18,7 +18,16 @@ export default class ImageModal extends Component {
     }
 
     renderImages = () => {
-        return !!this.state.images && this.state.images.map(image => <img key={image.url} onClick={this.props.getImage} src={image.secure_url} style={{maxWidth: '100%', maxHeight: '100%', width: '200px', height: '200px', margin: '.2rem', cursor: 'pointer'}} alt={image.url}/>)
+        return !!this.state.images && this.state.images.map(image => {
+            return (
+            <div key={image.url} className="image-card">
+                {/* <img key={image.url} onClick={this.props.getImage} src={image.secure_url} style={{maxWidth: '100%', maxHeight: '100%', width: '200px', height: '200px', margin: '.2rem', cursor: 'pointer', display: 'inline-block'}} alt={image.url}/> */}
+
+                <img key={image.url} className="image" onClick={this.props.getImage} src={image.secure_url} alt={image.url}/>
+            </div>
+        )
+        } 
+    )
         
     }
 
@@ -36,8 +45,11 @@ export default class ImageModal extends Component {
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <div className="my-example">
                     <div class="modal-body">
                         {this.renderImages()}
+                    </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
