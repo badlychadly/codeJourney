@@ -36,13 +36,13 @@ export default class ImageModal extends Component {
         return (
 
             <>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+                <div class="modal fade" style={{display: this.props.show ? 'flex' : 'none'}}id="exampleModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h4 style={{margin: '.2rem', width: '100%', textAlign: 'center', padding: '.2rem'}} class="modal-title" id="exampleModalLabel">Images from the Cloud</h4>
                         <button type="button" class="close" onClick={this.props.toggle} data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <i class="material-icons">clear</i>
                         </button>
                     </div>
                     <div className="my-example">
@@ -51,10 +51,10 @@ export default class ImageModal extends Component {
                     </div>
 
                     </div>
-                    <div class="modal-footer">
+                    {/* <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                    </div> */}
                     </div>
                 </div>
                 </div>

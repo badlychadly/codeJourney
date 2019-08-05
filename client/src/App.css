@@ -281,16 +281,13 @@ html {
     bottom: 0;
     left: 0;
     z-index: 1050;
-    /* display: none; */
     overflow: hidden;
     outline: 0;
     z-index: 1072;
     opacity: 1;
     overflow-x: hidden;
     overflow-y: auto;
-    /* display: block; */
     padding-right: 17px;
-    display: flex;
 }
 
 .modal-dialog {
@@ -315,8 +312,8 @@ html {
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: #fff;
-    background-clip: padding-box;
+    background-color: #f8f9fa;
+    /* background-clip: padding-box; */
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .3rem;
     outline: 0;
@@ -332,7 +329,7 @@ html {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 1rem;
+  padding: .1rem;
   border-bottom: 1px solid #e9ecef;
   border-top-left-radius: .3rem;
   border-top-right-radius: .3rem;
@@ -370,7 +367,7 @@ html {
     column-gap: .2rem;
 }
 
-.modal-footer {
+/* .modal-footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -382,7 +379,7 @@ html {
   justify-content: flex-end;
   padding: 1rem;
   border-top: 1px solid #e9ecef;
-}
+} */
 
 .image-card {
   position: relative;
@@ -412,4 +409,18 @@ html {
   display: block;
   /* vertical-align: middle; */
     border-style: none;
+}
+
+.close {
+  height: 25px;
+  cursor: pointer;
+  padding: 0;
+  border: .5px solid transparent;
+  border-radius: .2rem;
+  background-color: red;
+  color: white;
+}
+
+.close:hover {
+  background-color: #e80909;
 }
