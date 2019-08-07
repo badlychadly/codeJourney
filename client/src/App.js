@@ -7,6 +7,7 @@ import { getPosts, deletePost } from './actions/posts'
 import PostEditor from './PostEditor'
 import Navbar from './Navbar'
 import PostDisplay from './PostDisplay'
+import RenderPosts from './RenderPosts'
 
 class App extends Component {
 
@@ -18,30 +19,30 @@ class App extends Component {
     this.props.getPosts()
   }
 
-  renderPosts = (posts) => {
-    return this.props.allIds.map(id => {
-      // console.log(this.props.byId[id].updated_at)
-      const date = new Date(this.props.byId[id].updated_at)
-      const month = date.getMonth()
-      const year = date.getFullYear()
-      const day = date.getDate()
-      const time = date.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'})
-      // debugger;
-        // console.log(date.getDate())
-      return (<div key={id}>
-        <Link style={{textDecoration: 'none'}} to={`/posts/${id}`} >
-          <h2 style={{margin: '.5rem 0'}}>{this.props.byId[id].title}</h2>
-          <div  style={{fontSize: '.9rem', marginBottom: '1.5rem', color: 'rgba(0,0,0,.54)', fontWeight: 500, fill: 'rgba(0,0,0,.54)'}}>
-            <span style={{padding: '.5rem'}}>{`${month}/${day}/${year}`}</span>
-            <span style={{padding: '.5rem'}}>{time}</span>
-          </div>
-        </Link>
-      </div>)
-    // return <li key={id}>{this.props.byId[id].title} <button onClick={() => this.props.deletePost(id)}>delete</button></li>
+  // renderPosts = (posts) => {
+  //   return this.props.allIds.map(id => {
+  //     // console.log(this.props.byId[id].updated_at)
+  //     const date = new Date(this.props.byId[id].updated_at)
+  //     const month = date.getMonth()
+  //     const year = date.getFullYear()
+  //     const day = date.getDate()
+  //     const time = date.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'})
+  //     // debugger;
+  //       // console.log(date.getDate())
+  //     return (<div key={id}>
+  //       <Link style={{textDecoration: 'none'}} to={`/posts/${id}`} >
+  //         <h2 style={{margin: '.5rem 0', color: '#08090f'}}>{this.props.byId[id].title}</h2>
+  //         <div  style={{fontSize: '.9rem', marginBottom: '1.5rem', color: 'rgba(0,0,0,.54)', fontWeight: 500, fill: 'rgba(0,0,0,.54)'}}>
+  //           <span style={{padding: '.5rem'}}>{`${month}/${day}/${year}`}</span>
+  //           <span style={{padding: '.5rem'}}>{time}</span>
+  //         </div>
+  //       </Link>
+  //     </div>)
+  //   // return <li key={id}>{this.props.byId[id].title} <button onClick={() => this.props.deletePost(id)}>delete</button></li>
 
-      }
-    )
-  }
+  //     }
+  //   )
+  // }
 
 
   render() {
@@ -54,15 +55,19 @@ class App extends Component {
         marginLeft: "auto"}} className="">
       <Navbar/>
         {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
+        <h1 style={{textAlign: 'center'}}>Posts</h1>
         <div>
-          {this.renderPosts()}
+        {/* <RenderPosts byId={this.props.byId} allIds={this.props.allIds} /> */}
           
         </div>
         {/* < PostEditor  /> */}
         <Switch>
           <Route exact path="/posts/new" readOnly={false} component={PostEditor} />
           <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <PostEditor readOnly={false} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
+          <Route exact path="/posts/drafts" render={routerProps => <RenderPosts byId={this.props.byId} allIds={this.props.allIds} />} />
           <Route exact path='/posts/:postId' render={routerProps => <PostDisplay key={routerProps.match.params.postId} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
+          <Route exact path="/" render={routerProps => <RenderPosts byId={this.props.byId} allIds={this.props.allIds} {...routerProps} />} />
+          
         </Switch> 
       </div>
     ) :

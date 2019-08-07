@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 
 
 export default class Navbar extends Component {
@@ -25,7 +25,8 @@ export default class Navbar extends Component {
                 <li className="nav-item dropdown">
                     <span style={{cursor: 'pointer'}} onClick={this.toggle} className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</span>
                     <div style={{display: this.state.show ? 'block' : 'none'}} className="dropdown-menu">
-                        <a className="dropdown-item" href="#">Action</a>
+                        <Link className="dropdown-item" to="/posts/drafts">drafts</Link>
+                        {/* <a className="dropdown-item" href="#">Action</a> */}
                         <a className="dropdown-item" href="#">Another action</a>
                         <a className="dropdown-item" href="#">Something else here</a>
                         <div className="dropdown-divider"></div>
