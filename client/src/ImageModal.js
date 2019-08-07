@@ -37,26 +37,22 @@ export default class ImageModal extends Component {
 
             <>
                 <div class="modal fade" style={{display: this.props.show ? 'flex' : 'none'}}id="exampleModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 style={{margin: '.2rem', width: '100%', textAlign: 'center', padding: '.2rem'}} class="modal-title" id="exampleModalLabel">Images from the Cloud</h4>
-                        <button type="button" class="close" onClick={this.props.toggle} data-dismiss="modal" aria-label="Close">
-                        <i class="material-icons">clear</i>
-                        </button>
-                    </div>
-                    <div className="my-example">
-                    <div class="modal-body">
-                        {this.renderImages()}
-                    </div>
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 style={{margin: '.2rem', width: '100%', textAlign: 'center', padding: '.2rem'}} class="modal-title" id="exampleModalLabel">Images from the Cloud</h4>
+                                <button type="button" class="close" onClick={this.props.toggle} data-dismiss="modal" aria-label="Close">
+                                    <i class="material-icons">clear</i>
+                                </button>
+                            </div>
+                            <div className="modal-body-wrapper">
+                                <div class="modal-body">
+                                    {this.renderImages()}
+                                </div>
 
+                            </div>
+                        </div>
                     </div>
-                    {/* <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div> */}
-                    </div>
-                </div>
                 </div>
             </>
         )
