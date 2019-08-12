@@ -48,14 +48,10 @@ class App extends Component {
   render() {
     // debugger;
     return Object.keys(this.props.byId).length ? (
-      <div style={{width: "100%",
-        paddingRight: "15px",
-        paddingLeft: "15px",
-        marginRight: "auto",
-        marginLeft: "auto"}} className="">
+      <div className="">
       <Navbar/>
         {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
-        <h1 style={{textAlign: 'center'}}>Posts</h1>
+
         <div>
         {/* <RenderPosts byId={this.props.byId} allIds={this.props.allIds} /> */}
           

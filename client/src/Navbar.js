@@ -17,8 +17,12 @@ export default class Navbar extends Component {
 
     render() {
         return (
+            <div className="navbar">
+            <div className="navbrand">
+            <a href="#" className="">CodeJourney</a>
 
-            <ul className="navbar">
+            </div>
+            <ul className="navlist">
                 <li className="nav-item">
                     <NavLink to="/" activeClassName="nav-link" >Home</NavLink>
                 </li>
@@ -40,6 +44,8 @@ export default class Navbar extends Component {
                     <a className="nav-link" href="#">Disabled</a>
                 </li>
             </ul>
+
+            </div>
         )
     }
 }

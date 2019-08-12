@@ -13,7 +13,11 @@ export default class RenderPosts extends Component {
           const time = date.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'})
           // debugger;
             // console.log(date.getDate())
-          return (<div key={id}>
+          return (<div style={{width: "100%",
+          paddingRight: "15px",
+          paddingLeft: "15px",
+          marginRight: "auto",
+          marginLeft: "auto"}} key={id}>
             <Link style={{textDecoration: 'none'}} to={`/posts/${id}`} >
               <h2 style={{margin: '.5rem 0', color: '#08090f'}}>{this.props.byId[id].title}</h2>
               <div  style={{fontSize: '.9rem', marginBottom: '1.5rem', color: 'rgba(0,0,0,.54)', fontWeight: 500, fill: 'rgba(0,0,0,.54)'}}>
@@ -32,6 +36,7 @@ export default class RenderPosts extends Component {
     render() {
         return (
             <div>
+              <h1 style={{textAlign: 'center'}}>Posts</h1>
                 {this.renderPosts()}
             </div>
         )
