@@ -28,9 +28,9 @@ export default class Navbar extends Component {
                 </li>
                 <li className="nav-item dropdown">
                     <span style={{cursor: 'pointer'}} onClick={this.toggle} className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</span>
-                    <div style={{display: this.state.show ? 'block' : 'none'}} className="dropdown-menu">
+                    <div style={{display: this.state.show ? 'block' : 'none'}} onClick={this.toggle} className="dropdown-menu">
                         <Link className="dropdown-item" to="/posts/drafts">drafts</Link>
-                        {/* <a className="dropdown-item" href="#">Action</a> */}
+                        <Link to="/posts/new" className="dropdown-item" >New Post</Link>
                         <a className="dropdown-item" href="#">Another action</a>
                         <a className="dropdown-item" href="#">Something else here</a>
                         <div className="dropdown-divider"></div>
@@ -44,6 +44,9 @@ export default class Navbar extends Component {
                     <a className="nav-link" href="#">Disabled</a>
                 </li>
             </ul>
+
+
+
 
             </div>
         )

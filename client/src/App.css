@@ -198,7 +198,6 @@ html {
   margin: 0 0 .5rem 0;
   padding: .2rem;
   align-items: center;
-  overflow: hidden;
   background-color: #f8f9fa;
 }
 
@@ -225,6 +224,7 @@ html {
   text-decoration: none;
   color: black;
   font-weight: 600;
+  border: 1px solid #7b808566;
 }
 
 
@@ -302,6 +302,7 @@ html {
   background-clip: padding-box;
   border: 1px solid rgba(0,0,0,.15);
   border-radius: .25rem;
+  cursor: pointer;
 }
 
 .dropdown-item {
@@ -315,9 +316,14 @@ html {
   white-space: nowrap;
   background-color: transparent;
   border: 0;
+  text-decoration: none;
 }
 
-@media (max-width: 780px) {
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+@media (max-width: 870px) {
   .navbrand {
     flex: 0 0 40%;
     max-width: none;

@@ -58,9 +58,9 @@ class App extends Component {
         </div>
         {/* < PostEditor  /> */}
         <Switch>
-          <Route exact path="/posts/new" readOnly={false} component={PostEditor} />
+          <Route exact path="/posts/new" readOnly={false} render={ routerProps => <PostEditor key={routerProps.match.path} {...routerProps}/>} />
           <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <PostEditor readOnly={false} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
-          <Route exact path="/posts/drafts" render={routerProps => <RenderPosts byId={this.props.byId} allIds={this.props.allIds} />} />
+          <Route exact path="/posts/drafts" render={routerProps => <RenderPosts byId={this.props.byId} allIds={this.props.allIds} {...routerProps} />} />
           <Route exact path='/posts/:postId' render={routerProps => <PostDisplay key={routerProps.match.params.postId} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
           <Route exact path="/" render={routerProps => <RenderPosts byId={this.props.byId} allIds={this.props.allIds} {...routerProps} />} />
           

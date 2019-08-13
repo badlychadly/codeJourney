@@ -322,6 +322,10 @@ getImage = e => {
         );
 }
 
+handlePastedText = (text, html, editorState) => {
+    debugger;
+}
+
 
   
 
@@ -358,6 +362,7 @@ getImage = e => {
                 handleKeyCommand={this.handleKeyCommand}
                 handleBeforeInput={this.handleBeforeInput}
                 onChange={this.onChange}
+                // handlePastedText={this.handlePastedText}
                 plugins={this.plugins}
                 placeholder="Hello"
                 readOnly={this.props.readOnly}
