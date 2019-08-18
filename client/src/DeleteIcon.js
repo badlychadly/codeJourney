@@ -7,6 +7,9 @@ export default class DeleteIcon extends Component {
     toggleSelected = e => {
         e.preventDefault()
         e.stopPropagation()
+        if (!this.state.selected) {
+           this.props.addToDelete(e) 
+        }
         this.setState({selected: !this.state.selected})
     }
 
@@ -15,9 +18,9 @@ export default class DeleteIcon extends Component {
         return (
             <>
                 {this.state.selected ? (
-                    <i onClick={this.toggleSelected} data-id={this.props.public_id} class="material-icons">check_circle</i>
+                    <i style={{color: '#007bff'}} onClick={this.toggleSelected} data-id={this.props.public_id} class="material-icons">check_circle</i>
                 ) : (
-                    <i onClick={this.toggleSelected} data-id={this.props.public_id} class="material-icons">delete</i>
+                    <i style={{color: '#e85664'}} onClick={this.toggleSelected} data-id={this.props.public_id} class="material-icons">delete</i>
                 )
         }
             </>

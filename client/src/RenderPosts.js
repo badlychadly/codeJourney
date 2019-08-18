@@ -24,6 +24,9 @@ export default class RenderPosts extends Component {
               <div  style={{fontSize: '.9rem', marginBottom: '1.5rem', color: 'rgba(0,0,0,.54)', fontWeight: 500, fill: 'rgba(0,0,0,.54)'}}>
                 <span style={{padding: '.5rem'}}>{`${month}/${day}/${year}`}</span>
                 <span style={{padding: '.5rem'}}>{time}</span>
+                { this.props.isEdit && (
+                  <i style={{verticalAlign: 'middle', marginLeft: '2rem'}} class="material-icons">edit</i>
+                )}
               </div>
             </Link>
           </div>)
@@ -38,7 +41,7 @@ export default class RenderPosts extends Component {
       // debugger;
         return (
             <div>
-              <h1 style={{textAlign: 'center'}}>Posts</h1>
+              <h1 style={{textAlign: 'center'}}>{this.props.isEdit ? 'Drafts' : 'Posts'}</h1>
                 {this.renderPosts()}
             </div>
         )

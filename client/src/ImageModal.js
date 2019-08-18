@@ -55,7 +55,7 @@ export default class ImageModal extends Component {
                 {/* <img key={image.url} onClick={this.props.getImage} src={image.secure_url} style={{maxWidth: '100%', maxHeight: '100%', width: '200px', height: '200px', margin: '.2rem', cursor: 'pointer', display: 'inline-block'}} alt={image.url}/> */}
 
                 <img key={image.url} className="image" onClick={this.props.getImage} src={image.secure_url} alt={image.url}/>
-                <DeleteIcon public_id={image.public_id} />
+                <DeleteIcon public_id={image.public_id} addToDelete={this.addToDelete} />
                 {/* <i  data-id={image.public_id} onClick={this.addToDelete} class="material-icons">delete</i> */}
             </div>
         )
@@ -87,7 +87,7 @@ export default class ImageModal extends Component {
 
                             </div>
                             <div className="modal-footer">
-                                <button onClick={this.deleteItems}>Delete Selected</button>
+                                <button style={{padding: '.3rem', backgroundColor: 'red', color: 'white', border: '1px solid transparent', borderRadius: '.25rem', margin: '.2rem', cursor: 'pointer'}} onClick={this.deleteItems}>Delete Selected</button>
                             </div>
                         </div>
                     </div>

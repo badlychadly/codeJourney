@@ -364,7 +364,7 @@ handlePastedText = (text, html, editorState) => {
                 onChange={this.onChange}
                 // handlePastedText={this.handlePastedText}
                 plugins={this.plugins}
-                placeholder="Hello"
+                placeholder="Start Here..."
                 readOnly={this.props.readOnly}
             />
 
