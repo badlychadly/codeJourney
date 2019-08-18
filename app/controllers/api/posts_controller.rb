@@ -35,6 +35,12 @@ class Api::PostsController < ApplicationController
         render json: images
     end
 
+    def manage_cloud
+        # binding.pry
+        deleted = Cloudinary::Api.delete_resources(public_ids: params['public_ids'])
+        render json: deleted
+    end
+
     private 
 
     def post_params
