@@ -20,10 +20,10 @@ export const addPost = (postData, history) => {
             body: JSON.stringify({title: postData.title, body: JSON.stringify(postData.body)})
         })
         .then(resp => resp.json())
-        .then(post => {
-            // debugger;
-            !!post && history.replace(`/posts/drafts/${post.id}/edit`)
-            return dispatch({type: "ADD_POST", post})})
+        .then(post => dispatch({type: "ADD_POST", post}))
+        .then(action => {
+            return !!action.post && history.replace(`/posts/drafts/${action.post.id}/edit`)
+        })
     }
 }
 
