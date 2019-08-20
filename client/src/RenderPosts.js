@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom'
 
 export default class RenderPosts extends Component {
 
+  deletePost = (e, id) => {
+    e.preventDefault()
+    e.stopPropagation()
+    this.props.deletePost(id)
+  }
+
     renderPosts = (posts) => {
         return this.props.allIds.map(id => {
           // console.log(this.props.byId[id].updated_at)
@@ -20,12 +26,15 @@ export default class RenderPosts extends Component {
           marginRight: "auto",
           marginLeft: "auto"}} key={id}>
             <Link style={{textDecoration: 'none'}} to={ path.includes('drafts') ? `/posts/drafts/${id}/edit` : `/posts/${id}`} >
-              <h2 style={{margin: '.5rem 0', color: '#08090f'}}>{this.props.byId[id].title}</h2>
+              <h2 className="link-post-title" style={{margin: '.5rem 0', color: '#08090f'}}>{this.props.byId[id].title}</h2>
               <div  style={{fontSize: '.9rem', marginBottom: '1.5rem', color: 'rgba(0,0,0,.54)', fontWeight: 500, fill: 'rgba(0,0,0,.54)'}}>
                 <span style={{padding: '.5rem'}}>{`${month}/${day}/${year}`}</span>
                 <span style={{padding: '.5rem'}}>{time}</span>
                 { this.props.isEdit && (
-                  <i style={{verticalAlign: 'middle', marginLeft: '2rem'}} class="material-icons">edit</i>
+                  <span>
+                    <i style={{verticalAlign: 'middle', marginLeft: '2rem'}} class="material-icons edit">edit</i>
+                    <i style={{verticalAlign: 'middle', marginLeft: '2rem'}} onClick={ e => this.deletePost(e,id)} class="material-icons delete">delete_forever</i>
+                  </span>
                 )}
               </div>
             </Link>

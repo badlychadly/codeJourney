@@ -60,7 +60,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/posts/new" readOnly={false} render={ routerProps => <PostEditor key={routerProps.match.path} {...routerProps}/>} />
           <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <PostEditor readOnly={false} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
-          <Route exact path="/posts/drafts" render={routerProps => <RenderPosts isEdit={true} byId={this.props.byId} allIds={this.props.allIds} {...routerProps} />} />
+          <Route exact path="/posts/drafts" render={routerProps => <RenderPosts isEdit={true} byId={this.props.byId} allIds={this.props.allIds} deletePost={this.props.deletePost} {...routerProps} />} />
           <Route exact path='/posts/:postId' render={routerProps => <PostDisplay key={routerProps.match.params.postId} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
           <Route exact path="/" render={routerProps => <RenderPosts isEdit={false} byId={this.props.byId} allIds={this.props.allIds} {...routerProps} />} />
           

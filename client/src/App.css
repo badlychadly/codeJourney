@@ -54,6 +54,7 @@ html {
   display: flex;
   /* justify-content: space-around; */
   align-items: flex-start;
+  cursor: text;
 }
 
 
@@ -178,6 +179,7 @@ html {
   position: absolute;
   z-index: 0;
   font-size: 2em;
+  top: 170px;
 }
 
 .RichEditor-blockquote {
@@ -465,4 +467,18 @@ html {
     border-top: 1px solid #dee2e6;
     border-bottom-right-radius: .3rem;
     border-bottom-left-radius: .3rem;
+}
+
+.link-post-title:hover {
+  transform: scale(1.02)
+}
+
+.material-icons.delete:hover {
+  color: #e80909;
+  transform: scale(1.2)
+}
+
+.material-icons.edit:hover{
+  color: #ffc107b8;
+  transform: scale(1.2)
 }
