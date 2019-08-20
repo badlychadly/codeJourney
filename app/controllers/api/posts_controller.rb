@@ -2,7 +2,7 @@ class Api::PostsController < ApplicationController
     before_action :find_author
 
     def index
-        render json: Post.all
+        render json: Post.order_by_recent
     end
 
     def create
