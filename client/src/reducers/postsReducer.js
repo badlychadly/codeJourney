@@ -5,7 +5,8 @@ export default function combinePostReducers(state = {
         byId: {},
         allIds : []
     },
-    currentPost: {}
+    currentPost: {},
+    loggedIn: !!sessionStorage.jwt
 }
 , action) {
     switch (action.type) {
@@ -27,6 +28,8 @@ export default function combinePostReducers(state = {
         case "DELETE_POST":
         // USE CONSOLE.TIME TO SEE IF ARRAY.FILTER IS FASTER
             return {...state, posts: deletePostReducer(state.posts, action)}
+        case "LOGIN_SUCESS":
+            return {...state, loggedIn: !!sessionStorage.jwt}
         
         default:
             return state;

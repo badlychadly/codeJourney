@@ -8,6 +8,8 @@ import PostEditor from './PostEditor'
 import Navbar from './Navbar'
 import PostDisplay from './PostDisplay'
 import RenderPosts from './RenderPosts'
+import LoginForm from './LoginForm'
+import AdminLoginRoute from './customRoutes/AdminLoginRoute'
 
 class App extends Component {
 
@@ -50,13 +52,11 @@ class App extends Component {
     return Object.keys(this.props.byId).length ? (
       <div className="">
       <Navbar/>
-        {/* {this.renderPosts(this.props.allIds.map(id => this.props.byId[id]))} */}
+      {/* <LoginForm/> */}
 
-        <div>
-        {/* <RenderPosts byId={this.props.byId} allIds={this.props.allIds} /> */}
-          
-        </div>
-        {/* < PostEditor  /> */}
+        {/* <Route exact path="/admin/login" component={LoginForm} /> */}
+        <AdminLoginRoute path="/admin/login" loggedIn={this.props.loggedIn} component={LoginForm} history={this.props.history} />
+
         <Switch>
           <Route exact path="/posts/new" readOnly={false} render={ routerProps => <PostEditor key={routerProps.match.path} {...routerProps}/>} />
           <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <PostEditor readOnly={false} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
@@ -74,7 +74,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return ({
     byId: state.posts.byId,
-    allIds: state.posts.allIds
+    allIds: state.posts.allIds,
+    loggedIn: state.loggedIn
   })
 }
 

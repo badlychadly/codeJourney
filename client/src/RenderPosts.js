@@ -50,7 +50,7 @@ export default class RenderPosts extends Component {
       // debugger;
         return (
             <div>
-              <h1 style={{textAlign: 'center'}}>{this.props.isEdit ? 'Drafts' : 'Posts'}</h1>
+              <h1 style={{textAlign: 'center', textDecoration: 'underline'}}>{this.props.isEdit ? 'Drafts' : 'Posts'}</h1>
                 {this.renderPosts()}
             </div>
         )

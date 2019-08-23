@@ -56,7 +56,7 @@ export default class ImageModal extends Component {
 
                 <img key={image.url} className="image" onClick={this.props.getImage} src={image.secure_url} alt={image.url}/>
                 <DeleteIcon public_id={image.public_id} addToDelete={this.addToDelete} />
-                {/* <i  data-id={image.public_id} onClick={this.addToDelete} class="material-icons">delete</i> */}
+                {/* <i  data-id={image.public_id} onClick={this.addToDelete} className="material-icons">delete</i> */}
             </div>
         )
         } 
@@ -71,17 +71,17 @@ export default class ImageModal extends Component {
         return (
 
             <>
-                <div class="modal fade" style={{display: this.props.show ? 'flex' : 'none'}}id="exampleModal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 style={{margin: '.2rem', width: '100%', textAlign: 'center', padding: '.2rem'}} class="modal-title" id="exampleModalLabel">Images from the Cloud</h4>
-                                <button type="button" class="close" onClick={this.props.toggle} data-dismiss="modal" aria-label="Close">
-                                    <i class="material-icons">clear</i>
+                <div className="modal fade" style={{display: this.props.show ? 'flex' : 'none'}}id="exampleModal" tabindex="-1" role="dialog">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h4 style={{margin: '.2rem', width: '100%', textAlign: 'center', padding: '.2rem'}} className="modal-title" id="exampleModalLabel">Images from the Cloud</h4>
+                                <button type="button" className="close" onClick={this.props.toggle} data-dismiss="modal" aria-label="Close">
+                                    <i className="material-icons">clear</i>
                                 </button>
                             </div>
                             <div className="modal-body-wrapper">
-                                <div class="modal-body">
+                                <div className="modal-body">
                                     {this.renderImages()}
                                 </div>
 
