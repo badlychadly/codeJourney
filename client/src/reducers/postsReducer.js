@@ -30,6 +30,8 @@ export default function combinePostReducers(state = {
             return {...state, posts: deletePostReducer(state.posts, action)}
         case "LOGIN_SUCESS":
             return {...state, loggedIn: !!sessionStorage.jwt}
+        case "LOGOUT_USER":
+            return {...state, loggedIn: !!sessionStorage.jwt}
         
         default:
             return state;

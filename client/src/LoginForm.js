@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { loginUser } from './actions/session'
 
 
 
@@ -17,33 +19,7 @@ class LoginForm extends Component {
     }
 
     login = () => {
-        return fetch('http://10.0.0.99:3001/api/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({auth: this.state.credentials})
-    })
-    .then(resp => {
-      // debugger;
-      if (resp.ok) {
-        return resp.json()
-      }
-
-    })
-    .then(response => {
-        debugger;
-        if (!!response.jwt) {
-          sessionStorage.setItem('jwt', response.jwt);
-        //   dispatch(loginSuccess());
-        } else {
-        //   dispatch({type: "LOG_IN_FAIL"})
-        }
-        // return response.jwt
-      })
-    .catch(error => {
-      debugger;
-    }) 
+        this.props.loginUser(this.state.credentials)
     }
 
 
@@ -95,4 +71,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm
+export default connect(null, {loginUser})(LoginForm)

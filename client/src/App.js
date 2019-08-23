@@ -51,7 +51,7 @@ class App extends Component {
     // debugger;
     return Object.keys(this.props.byId).length ? (
       <div className="">
-      <Navbar/>
+      <Navbar loggedIn={this.props.loggedIn}/>
       {/* <LoginForm/> */}
 
         {/* <Route exact path="/admin/login" component={LoginForm} /> */}
