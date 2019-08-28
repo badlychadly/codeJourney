@@ -16,6 +16,11 @@ class Navbar extends Component {
         })
     }
 
+    logout = e => {
+        e.preventDefault();
+        this.props.logoutUser();
+    }
+
 
     render() {
         return (
@@ -31,12 +36,16 @@ class Navbar extends Component {
                     <li className="nav-item dropdown">
                         <span style={{cursor: 'pointer'}} onClick={this.toggle} className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</span>
                         <div style={{display: this.state.show ? 'block' : 'none'}} onClick={this.toggle} className="dropdown-menu">
-                            <Link className="dropdown-item" to="/posts/drafts">drafts</Link>
-                            <Link to="/posts/new" className="dropdown-item" >New Post</Link>
+                            { this.props.loggedIn && (
+                                <>
+                                    <Link to="/posts/new" className="dropdown-item" >New Post</Link>
+                                    <Link className="dropdown-item" to="/posts/drafts">drafts</Link>
+                                    <div onClick={this.logout} className="dropdown-item" href="#">Logout</div>
+                                </>
+                            )}
                             <a className="dropdown-item" href="#">Another action</a>
                             <a className="dropdown-item" href="#">Something else here</a>
                             <div className="dropdown-divider"></div>
-                            <div onClick={() => this.props.logoutUser()} className="dropdown-item" href="#">Logout</div>
                         </div>
                     </li>
                     <li className="nav-item">

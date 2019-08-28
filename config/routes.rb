@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     post '/upload', to: "posts#upload"
     get '/cloud-images', to: "posts#images"
     delete '/cloud-images', to: "posts#manage_cloud"
+    
+    post '/login', to: "sessions#create"
   end
 
 end

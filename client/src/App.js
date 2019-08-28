@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import { Route, Switch, Link } from 'react-router-dom'
+import { Route, Switch, Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPosts, deletePost } from './actions/posts'
 import PostEditor from './PostEditor'
@@ -58,9 +58,35 @@ class App extends Component {
         <AdminLoginRoute path="/admin/login" loggedIn={this.props.loggedIn} component={LoginForm} history={this.props.history} />
 
         <Switch>
-          <Route exact path="/posts/new" readOnly={false} render={ routerProps => <PostEditor key={routerProps.match.path} {...routerProps}/>} />
-          <Route exact path={`/posts/drafts/:postId/edit`} render={routerProps => <PostEditor readOnly={false} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
-          <Route exact path="/posts/drafts" render={routerProps => <RenderPosts isEdit={true} byId={this.props.byId} allIds={this.props.allIds} deletePost={this.props.deletePost} {...routerProps} />} />
+          <Route path="/posts/new" 
+          readOnly={false} 
+          render={ routerProps => this.props.loggedIn ? (
+              <PostEditor key={routerProps.match.path} {...routerProps}/>
+            ) :
+              (<Redirect to="/" />)
+            }
+          />
+
+          <Route exact path={`/posts/drafts/:postId/edit`}
+            render={routerProps => this.props.loggedIn ? (
+                <PostEditor readOnly={false} 
+                  post={this.props.byId[routerProps.match.params.postId]} 
+                  {...routerProps} />
+              ) : (<Redirect to="/" />)
+            } 
+          />
+
+          <Route exact path="/posts/drafts" 
+            render={routerProps => this.props.loggedIn ? (
+              <RenderPosts 
+                isEdit={true} 
+                byId={this.props.byId} 
+                allIds={this.props.allIds} 
+                deletePost={this.props.deletePost} 
+                {...routerProps} 
+              />) : (<Redirect to="/" />)
+            } 
+          />
           <Route exact path='/posts/:postId' render={routerProps => <PostDisplay key={routerProps.match.params.postId} post={this.props.byId[routerProps.match.params.postId]} {...routerProps} />} />
           <Route exact path="/" render={routerProps => <RenderPosts isEdit={false} byId={this.props.byId} allIds={this.props.allIds} {...routerProps} />} />
           

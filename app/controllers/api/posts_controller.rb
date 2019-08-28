@@ -1,5 +1,5 @@
 class Api::PostsController < ApplicationController
-    before_action :find_author
+    before_action :find_author, except: [:index, :images]
 
     def index
         render json: Post.order_by_recent
@@ -17,10 +17,8 @@ class Api::PostsController < ApplicationController
     end
 
     def destroy
-        # binding.pry
         post = @author.posts.find_by(id: params[:id])
         post.destroy
-        # binding.pry
         render json: post
     end
 
