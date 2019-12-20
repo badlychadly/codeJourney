@@ -27,6 +27,12 @@ export const addPost = (postData, history) => {
     }
 }
 
+export const isSaving = () => {
+    return dispatch => {
+        return dispatch({type: "SAVING"})
+    }
+}
+
 export const updatePost = (id, postData) => {
     return dispatch => {
         return fetch(`http://10.0.0.99:3001/api/posts/${id}`, {
@@ -36,6 +42,7 @@ export const updatePost = (id, postData) => {
         })
         .then(resp => resp.json())
         .then(post => dispatch({type: "UPDATE_POST", post}))
+        .then(d => setTimeout( () => (dispatch({type: "SAVED"})), 1000))
     }
 }
 

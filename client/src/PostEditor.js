@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addPost, updatePost } from './actions/posts'
+// import SavingIcon from './savingIcon'
+import { addPost, updatePost, isSaving } from './actions/posts'
 
 
 import {
@@ -110,6 +111,7 @@ handleKeyCommand = (command, editorState) => {
 keyBindingFn = (e) => {
     if (e.key === "s" && hasCommandModifier(e) ) {
         // debugger;
+        this.props.isSaving()
       return 'myeditor-save'
     }
     if (hasCommandModifier(e) && e.key === "h") {
@@ -331,6 +333,7 @@ handlePastedText = (text, html, editorState) => {
 
   render() {
     //   debugger;
+    // console.log(this.props.saved)
     //   console.log(convertToRaw(this.state.editorState.getCurrentContent()))
     return (
       <div style={this.props.readOnly ? (styles.editor): {}} className="editor-wrapper" data-name="editor-wrapper" onClick={this.navStyleToggle}>
@@ -369,6 +372,11 @@ handlePastedText = (text, html, editorState) => {
             />
 
         </div>
+        {/* {this.props.saving &&
+            <SavingIcon message={this.props.saved ? 'Saved' : 'Saving'}/>
+        } */}
+            {/* <SavingIcon message={this.props.saved ? 'Saved' : 'Saving'}/> */}
+        
       </div>
     );
   }
@@ -381,9 +389,11 @@ const styles = {
   const mapStateToProps = state => {
       return ({
           currentPost: state.currentPost
+        //   saving: state.ui.isSaving,
+        //   saved: state.ui.saveSuccess
       })
   }
 
 
 
-export default connect(mapStateToProps, { addPost, updatePost })(PostEditor);
+export default connect(mapStateToProps, { addPost, updatePost, isSaving })(PostEditor);

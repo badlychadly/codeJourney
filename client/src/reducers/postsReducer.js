@@ -6,7 +6,8 @@ export default function combinePostReducers(state = {
         allIds : []
     },
     currentPost: {},
-    loggedIn: !!sessionStorage.jwt
+    loggedIn: !!sessionStorage.jwt,
+    ui: {isSaving: false, saveSuccess: false}
 }
 , action) {
     switch (action.type) {
@@ -20,9 +21,24 @@ export default function combinePostReducers(state = {
                 currentPost: currentPostReducer(state.currentPost, action)
             }
         case "UPDATE_POST":
+        // debugger;
             return {
                 ...state,
                 posts: updatePostReducer(state.posts, action)
+            }
+
+        case "SAVING":
+        // debugger;
+            return {
+                ...state,
+                ui: {isSaving: true, saveSuccess: state.ui.saveSuccess}
+            }
+
+        case "SAVED":
+        // debugger;
+            return {
+                ...state,
+                ui: {...state.ui, saveSuccess: true}
             }
 
         case "DELETE_POST":
