@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { EditorState, convertFromRaw } from "draft-js";
 import Editor from "draft-js-plugins-editor";
-import createHighlightPlugin from "./plugins/highlightPlugin";
-import addLinkPlugin from './plugins/addLinkPlugin'
-import { getBlockStyle } from './toolbar/Toolbar'
-import { mediaBlockRenderer } from './entities/mediaBlockRenderer'
+import createHighlightPlugin from "../draftHelpers/plugins/highlightPlugin";
+import addLinkPlugin from '../draftHelpers/plugins/addLinkPlugin'
+import { getBlockStyle } from '../components/toolbar/Toolbar'
+import { mediaBlockRenderer } from '../draftHelpers/entities/mediaBlockRenderer'
 
 const highlightPlugin = createHighlightPlugin();
 

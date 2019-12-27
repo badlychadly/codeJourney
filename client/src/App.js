@@ -4,13 +4,13 @@ import './App.css';
 import { Route, Switch, Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPosts, deletePost } from './actions/posts'
-import PostEditor from './PostEditor'
-import Navbar from './Navbar'
-import PostDisplay from './PostDisplay'
-import RenderPosts from './RenderPosts'
-import LoginForm from './LoginForm'
+import PostEditor from './containers/PostEditor'
+import Navbar from './containers/Navbar'
+import PostDisplay from './containers/PostDisplay'
+import RenderPosts from './components/RenderPosts'
+import LoginForm from './containers/LoginForm'
 import AdminLoginRoute from './customRoutes/AdminLoginRoute'
-import SavingIcon from './savingIcon'
+import SavingIcon from './containers/savingIcon'
 
 class App extends Component {
 

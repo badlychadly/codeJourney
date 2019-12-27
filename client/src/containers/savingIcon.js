@@ -7,7 +7,7 @@ class SavingIcon extends Component {
         // debugger
         console.log('render')
         // let className = this.props.saved ? "" : "cascading-text__letter";
-        return this.props.saved ? (<div className="cascading-text__letter">{this.props.message}</div>) :  Array.prototype.map.call(this.props.message, letter => <div className="cascading-text__letter">{letter}</div>)
+        return this.props.saved ? (<div className="cascading-text__letter">{this.props.message}</div>) :  Array.prototype.map.call(this.props.message, (letter, index) => <div key={index} className="cascading-text__letter">{letter}</div>)
     }
 
     render() {

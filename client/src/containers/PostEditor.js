@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import SavingIcon from './savingIcon'
-import { addPost, updatePost, isSaving } from './actions/posts'
+import { addPost, updatePost, isSaving } from '../actions/posts'
 
 
 import {
@@ -17,11 +16,11 @@ import {
 } from "draft-js";
 import Draft from 'draft-js'
 import Editor from "draft-js-plugins-editor";
-import createHighlightPlugin from "./plugins/highlightPlugin";
-import addLinkPlugin from './plugins/addLinkPlugin'
-import { mediaBlockRenderer } from './entities/mediaBlockRenderer'
-import Toolbar, { getBlockStyle } from './toolbar/Toolbar'
-import ImageModal from './ImageModal'
+import createHighlightPlugin from "../draftHelpers/plugins/highlightPlugin";
+import addLinkPlugin from '../draftHelpers/plugins/addLinkPlugin'
+import { mediaBlockRenderer } from '../draftHelpers/entities/mediaBlockRenderer'
+import Toolbar, { getBlockStyle } from '../components/toolbar/Toolbar'
+import ImageModal from '../components/ImageModal'
 
 const {hasCommandModifier} = KeyBindingUtil;
 

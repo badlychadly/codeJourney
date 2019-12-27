@@ -1,4 +1,4 @@
-import { RichUtils, getDefaultKeyBinding, KeyBindingUtil} from 'draft-js'
+import { RichUtils } from 'draft-js'
 // const {hasCommandModifier} = KeyBindingUtil;
 
 // background: "rgba(27,31,35,.05)",
