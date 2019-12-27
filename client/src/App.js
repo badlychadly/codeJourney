@@ -49,7 +49,7 @@ class App extends Component {
 
 
   render() {
-    debugger;
+    // debugger;
     return Object.keys(this.props.byId).length ? (
       <div className="">
       <Navbar loggedIn={this.props.loggedIn}/>
@@ -92,7 +92,7 @@ class App extends Component {
           <Route exact path="/" render={routerProps => <RenderPosts isEdit={false} byId={this.props.byId} allIds={this.props.allIds} {...routerProps} />} />
           
         </Switch> 
-        <SavingIcon message={this.props.saved ? 'Saved' : 'Saving'}/>
+        <SavingIcon />
       </div>
     ) :
     <h2>Loading</h2>
@@ -103,9 +103,9 @@ const mapStateToProps = (state) => {
   return ({
     byId: state.posts.byId,
     allIds: state.posts.allIds,
-    loggedIn: state.loggedIn,
-    saving: state.ui.isSaving,
-    saved: state.ui.saveSuccess
+    loggedIn: state.loggedIn
+    // saving: state.ui.isSaving,
+    // saved: state.ui.saveSuccess
   })
 }
 

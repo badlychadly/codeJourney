@@ -1,26 +1,38 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default function SavingIcon({message, ...rest}) {
+class SavingIcon extends Component {
 
-    const renderLetters = () => {
+   renderLetters = () => {
         // debugger
         console.log('render')
-        return Array.prototype.map.call(message, letter => <div className="cascading-text__letter tx--red">{letter}</div>)
+        // let className = this.props.saved ? "" : "cascading-text__letter";
+        return this.props.saved ? (<div className="cascading-text__letter">{this.props.message}</div>) :  Array.prototype.map.call(this.props.message, letter => <div className="cascading-text__letter">{letter}</div>)
     }
 
-    return (
-        <div className="cascading-text cascading-text--fade" data-animated="data-animated">
+    render() {
+        const addClass = this.props.saved ? "pulse" : "fade";
+        return this.props.isSaving ? (
+            <div className={`cascading-text cascading-text--${addClass}`}>
+                {this.renderLetters()}
+            </div>
+        ) :
+        ("")
+        // return (
+        //     <div className={`cascading-text cascading-text--${addClass}`}>
+        //         {this.renderLetters()}
+        //     </div>
+        // )
 
-            {/* <h1 style={{position: 'fixed', top: '50%', left: '50%'}}>Saving</h1> */}
-            {/* <h1 className="neon" data-text="Neon">Saving</h1> */}
-
-            {/* <div className="cascading-text__letter tx--red">S</div>
-            <div className="cascading-text__letter tx--red">a</div>
-            <div className="cascading-text__letter tx--red">v</div>
-            <div className="cascading-text__letter tx--red">i</div>
-            <div className="cascading-text__letter tx--red">n</div>
-            <div className="cascading-text__letter tx--red">g</div> */}
-            {renderLetters()}
-        </div>
-    )
+    }
 }
+
+const mapStateToProps = state => {
+    return {
+        isSaving: state.ui.isSaving,
+        saved: state.ui.saveSuccess,
+        message: state.ui.message
+    }
+}
+
+export default connect(mapStateToProps, null)(SavingIcon)
