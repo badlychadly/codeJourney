@@ -18,9 +18,9 @@ export default class DeleteIcon extends Component {
         return (
             <>
                 {this.state.selected ? (
-                    <i style={{color: '#007bff'}} onClick={this.toggleSelected} data-id={this.props.public_id} class="material-icons">check_circle</i>
+                    <i style={{color: '#007bff'}} onClick={this.toggleSelected} data-id={this.props.public_id} className="material-icons">check_circle</i>
                 ) : (
-                    <i style={{color: '#e85664'}} onClick={this.toggleSelected} data-id={this.props.public_id} class="material-icons">delete</i>
+                    <i style={{color: '#e85664'}} onClick={this.toggleSelected} data-id={this.props.public_id} className="material-icons">delete</i>
                 )
         }
             </>

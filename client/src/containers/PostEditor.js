@@ -20,7 +20,6 @@ import createHighlightPlugin from "../draftHelpers/plugins/highlightPlugin";
 import addLinkPlugin from '../draftHelpers/plugins/addLinkPlugin'
 import { mediaBlockRenderer } from '../draftHelpers/entities/mediaBlockRenderer'
 import Toolbar, { getBlockStyle } from '../components/toolbar/Toolbar'
-import ImageModal from '../components/ImageModal'
 
 const {hasCommandModifier} = KeyBindingUtil;
 
@@ -69,7 +68,6 @@ class PostEditor extends Component {
 
 
 handleKeyCommand = (command, editorState) => {
-  const testUtils = RichUtils
     const newState = RichUtils.handleKeyCommand(
         this.state.editorState,
         command
@@ -147,7 +145,7 @@ onAddLink = (e) => {
   const entityKey = contentWithEntity.getLastCreatedEntityKey();
   // const rawhtml = convert
   const richUtilsLink = RichUtils.toggleLink(newEditorState, selection, entityKey)
-  const hasLink = RichUtils.currentBlockContainsLink(richUtilsLink)
+//   const hasLink = RichUtils.currentBlockContainsLink(richUtilsLink)
 //   debugger;
   this.onChange(this.setSelection(richUtilsLink));
   return "handled";
@@ -167,7 +165,6 @@ setSelection = (editorState) => {
 
 navStyleToggle = (e) => {
       e.stopPropagation()
-      const state = this.state
       const newEditorState = this.setSelection(this.state.editorState);
     //   debugger;
         

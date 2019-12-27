@@ -86,14 +86,14 @@ class BlockStyleToolbar extends React.Component {
 
 				<div onMouseEnter={this.handleMouseEnter} data-heading-dropdown="true" onMouseLeave={this.handleMouseLeave} style={{display: "inline-block", width: "100%"}}>
 				<button className="menu-inline-btn" title="format-size">
-					<i class="material-icons">format_size</i>
+					<i className="material-icons">format_size</i>
 				</button>
 				
 					<div className="header-dropdown" hidden={this.state.hideHeaders} style={{position: "absolute", left: "40px", top: "0"}}>
 					{HEADER_TYPES.map(heading => {
 						// console.log(heading.value)
 						return <button className="header-btn" data-block={heading.style} title={heading.title} onClick={this.props.onToggle} key={heading.label}>
-							<i class="material-icons">{heading.label}</i>
+							<i className="material-icons">{heading.label}</i>
 						</button>
 					})}
 				</div>
@@ -127,7 +127,7 @@ class BlockStyleToolbar extends React.Component {
 							<i className="material-icons">attachment</i>
 						</button>
 						<button className="header-btn" data-block="choose" title="add new photo" onClick={this.props.openInputFile}>
-							<i class="material-icons">wb_cloudy</i>
+							<i className="material-icons">wb_cloudy</i>
 						</button>
 						<button className="header-btn" onClick={this.toggleModal} title="choose from existing">
 							<i className="material-icons">photo_library</i>

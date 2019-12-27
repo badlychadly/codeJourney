@@ -26,7 +26,7 @@ class Navbar extends Component {
         return (
             <div className="navbar">
                 <div className="navbrand">
-                    <a href="#" className="">CodeJourney</a>
+                    <NavLink to="/">CodeJourney</NavLink>
 
                 </div>
                 <ul className="navlist">
@@ -43,16 +43,16 @@ class Navbar extends Component {
                                     <div onClick={this.logout} className="dropdown-item" href="#">Logout</div>
                                 </>
                             )}
-                            <a className="dropdown-item" href="#">Another action</a>
-                            <a className="dropdown-item" href="#">Something else here</a>
+                            {/* <a className="dropdown-item" href="#">Another action</a>
+                            <a className="dropdown-item" href="#">Something else here</a> */}
                             <div className="dropdown-divider"></div>
                         </div>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Link</a>
+                        <NavLink to="/" activeClassName="nav-link">Link</NavLink>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Disabled</a>
+                        <NavLink to="/" activeClassName="nav-link">Disabled</NavLink>
                     </li>
                 </ul>
 

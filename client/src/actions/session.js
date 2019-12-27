@@ -1,8 +1,8 @@
 
 
-function requestHeaders() {
-    return {'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`}
-}
+// function requestHeaders() {
+//     return {'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`}
+// }
 
 export function loginUser(credentials) {
     return dispatch => {

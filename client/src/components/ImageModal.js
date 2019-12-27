@@ -71,7 +71,7 @@ export default class ImageModal extends Component {
         return (
 
             <>
-                <div className="modal fade" style={{display: this.props.show ? 'flex' : 'none'}}id="exampleModal" tabindex="-1" role="dialog">
+                <div className="modal fade" style={{display: this.props.show ? 'flex' : 'none'}}id="exampleModal" tabIndex="-1" role="dialog">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
